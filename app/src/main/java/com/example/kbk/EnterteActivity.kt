@@ -7,9 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.textfield.TextInputEditText
+import kotlinx.android.synthetic.main.enterte.*
 
 
-class EnterteActivity : AppCompatActivity(){
+class EnterteActivity : AppCompatActivity(), View.OnClickListener {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +28,12 @@ class EnterteActivity : AppCompatActivity(){
             onBackPressed() // возврат на предыдущий activity
         }
 
-
+        entebutton.setOnClickListener(this)
     }
-
+    override fun onClick(v: View?) {
+        TODO("Not yet implemented")
+        when(v){
+            
+        }
+    }
 }

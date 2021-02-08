@@ -1,7 +1,6 @@
 package com.example.kbk
 
-class User {
+data class User (var username: String, var password: String) {
 
-//   val (username,password): String
 
 }

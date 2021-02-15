@@ -32,7 +32,7 @@ class EnterteActivity : AppCompatActivity(), View.OnClickListener {
         entebutton.setOnClickListener(this)
     }
 
-    fun userSignUp()
+    fun userSignIn()
     {
         val login: String = inlogin.text.toString().trim()
         val pass: String = inpass.text.toString().trim()
@@ -54,6 +54,6 @@ class EnterteActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         TODO("Not yet implemented")
-        userSignUp()
+        userSignIn()
     }
 }

@@ -1,6 +1,6 @@
 package com.example.kbk
 
-data class User (var username: String, var password: String) {
+data class User (var id: Int, var auth: String, var confirmed: Int, var policyagreed: Int, var deleted: Int, var suspended: Int, var mnethostid: Int, var username: String, var password: String, var idnumber: String, var firstname:String, var lastname: String, var email: String, var emailstop: Int, var icq: String, var skype: String, var yahoo: String, var aim: String, var msn: String, var phone1: String, var phone2: String, var institution: String, var department: String, var address: String, var city: String, var country: String, var lang: String, var calendartype: String, var theme: String, var timezone: String, var firstaccess: Int, var lastaccess: Int, var lastlogin: Int, var currentlogin: Int, var lastip: String, var secret: String, var picture: Int, var url: String, var descrition: String, var descriptionformat: Int, var mailformat: Int, var maildigest: Int, var maildisplay: Int, var autosubscribe: Int, var trackforums: Int, var timecreated: Int, var timemodified: Int, var trustbitmask: Int, var imagealt: String, var lastnamephonetic: String, var firstnamephonetic: String, var middlename: String, var alternatename: String) {
 
 
 }

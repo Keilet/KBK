@@ -8,6 +8,7 @@ import androidx.appcompat.widget.Toolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.enterte.*
+import retrofit2.Call
 
 
 class EnterteActivity : AppCompatActivity(), View.OnClickListener {
@@ -52,6 +53,8 @@ class EnterteActivity : AppCompatActivity(), View.OnClickListener {
             inpass.requestFocus()
             return
         }
+
+        var call: Call<LoginResponse> = ServiceBuilder.getApi()
     }
 
     override fun onClick(v: View?) {

@@ -12,13 +12,14 @@ import kotlinx.android.synthetic.main.enterte.*
 
 class EnterteActivity : AppCompatActivity(), View.OnClickListener {
 
-    val inlogin: TextInputEditText = findViewById(R.id.login)
-    val inpass: TextInputEditText = findViewById(R.id.pass)
+    lateinit var inlogin: TextInputEditText
+    lateinit var inpass: TextInputEditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.enterte)
-
+        inlogin = findViewById(R.id.login)
+        inpass= findViewById(R.id.pass)
 
 
         val toolbar = findViewById<View>(R.id.toolbar) as Toolbar
@@ -46,6 +47,7 @@ class EnterteActivity : AppCompatActivity(), View.OnClickListener {
 
         if (pass.isEmpty())
         {
+
             inpass.setError("Необходим пароль")
             inpass.requestFocus()
             return
@@ -53,7 +55,6 @@ class EnterteActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-        TODO("Not yet implemented")
         userSignIn()
     }
 }

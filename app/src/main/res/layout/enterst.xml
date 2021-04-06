@@ -54,7 +54,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="Логин"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:id="@+id/login"
+                />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -64,7 +66,7 @@
             android:padding="10dp"
             app:hintTextColor="@color/orange_700"
             app:passwordToggleEnabled="true"
-            app:passwordToggleDrawable="@drawable/show_password_selector">
+           >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:inputType="textPassword"
@@ -72,6 +74,7 @@
                 android:layout_height="match_parent"
                 android:hint="Пароль"
                 android:textColor="@color/white"
+                android:id="@+id/pass"
                 />
         </com.google.android.material.textfield.TextInputLayout>
 

@@ -63,8 +63,8 @@
             android:layout_marginVertical="5dp"
             android:padding="10dp"
             app:hintTextColor="@color/orange_700"
-            app:passwordToggleEnabled="true"
-            app:passwordToggleDrawable="@drawable/show_password_selector">
+            app:passwordToggleEnabled="true">
+            <!--app:passwordToggleDrawable="@drawable/show_password_selector">-->
 
             <com.google.android.material.textfield.TextInputEditText
                 android:inputType="textPassword"

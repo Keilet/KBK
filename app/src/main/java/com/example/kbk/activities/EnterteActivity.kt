@@ -1,10 +1,12 @@
-package com.example.kbk
+package com.example.kbk.activities
 
 import android.os.Bundle
 import android.view.View
-import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.example.kbk.LoginResponse
+import com.example.kbk.R
+import com.example.kbk.ServiceBuilder
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.enterte.*

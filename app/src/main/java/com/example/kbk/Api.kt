@@ -10,11 +10,16 @@ interface Api {
 
     @FormUrlEncoded
     @GET("getUser")
+    fun getUser (   //вариант 3
+            @Field("username") username: String,
+            @Field("password") password: String
+    )
+    fun getUser () : Call<LoginResponse> // вариант 2
 /*
-    Call<LoginResponse> getUser(
+    Call<LoginResponse> getUser( // вариант 1
         @Field("username") username:String,
     )
 */
 
-    fun getUser () : Call<LoginResponse>
+
 }

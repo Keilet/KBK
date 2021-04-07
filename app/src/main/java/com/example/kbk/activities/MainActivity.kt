@@ -1,8 +1,9 @@
-package com.example.kbk
+package com.example.kbk.activities
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.kbk.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -13,15 +14,15 @@ class MainActivity : AppCompatActivity() {
 
 
         tebutton.setOnClickListener {
-            val intent = Intent(this,EnterteActivity::class.java)
+            val intent = Intent(this, EnterteActivity::class.java)
             startActivity(intent)
         }
         stbutton.setOnClickListener {
-            val intent = Intent(this,EnterstActivity::class.java)
+            val intent = Intent(this, EnterstActivity::class.java)
             startActivity(intent)
         }
         abbutton.setOnClickListener {
-            val intent = Intent(this,Bnv::class.java)
+            val intent = Intent(this, Bnv::class.java)
             startActivity(intent)
         }
     }

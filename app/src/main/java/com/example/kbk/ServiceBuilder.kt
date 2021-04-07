@@ -3,7 +3,7 @@ package com.example.kbk
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
+// вариант 2 https://dev.to/bensalcie/android-kotlin-get-data-from-restful-api-having-multiple-json-objects-o5a
 object ServiceBuilder {
 
     private const val URL ="https://kbkapp.000webhostapp.com/"

@@ -1,9 +1,10 @@
-package com.example.kbk
+package com.example.kbk.activities
 
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.example.kbk.R
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.enterst.*
 

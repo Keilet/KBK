@@ -13,7 +13,7 @@
         android:theme="@style/Theme.KBK">
 
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,13 +22,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".EnterteActivity"
+            android:name=".activities.EnterteActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".EnterstActivity"
+            android:name=".activities.EnterstActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Bnv" android:screenOrientation="portrait" android:theme="@style/AppTheme"
+            android:name=".activities.Bnv" android:screenOrientation="portrait" android:theme="@style/AppTheme"
             />
         <meta-data
             android:name="preloaded_fonts"

@@ -2,9 +2,9 @@ package com.example.kbk
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
+// вариант 1 Simplified Coding Retrofit Android Tutorial - Sign Up using Retrofit POST Request
 class RetrofitClient {
-    private final val BASE_URL: String = "https://kbkapp.000webhostapp.com/"
+    private val BASE_URL: String = "https://kbkapp.000webhostapp.com/"
     private lateinit var mInstance: RetrofitClient
     private lateinit var retrofit: Retrofit
 

@@ -1,17 +1,21 @@
 package com.example.kbk.activities
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import com.example.kbk.LoginResponse
-import com.example.kbk.R
-import com.example.kbk.ServiceBuilder
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.example.kbk.*
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.enterte.*
 import retrofit2.Call
-
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+private const val TAG = "EnterteActivity"
 
 class EnterteActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -23,6 +27,7 @@ class EnterteActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.enterte)
         inlogin = findViewById(R.id.login)
         inpass= findViewById(R.id.pass)
+
 
 
         val toolbar = findViewById<View>(R.id.toolbar) as Toolbar
@@ -41,6 +46,37 @@ class EnterteActivity : AppCompatActivity(), View.OnClickListener {
         val login: String = inlogin.text.toString().trim()
         val pass: String = inpass.text.toString().trim()
 
+        val retrofit=Retrofit.Builder()
+                .baseUrl(ServiceBuilder.URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+        val service:Api = retrofit.create(Api::class.java)
+
+        val call: Call<LoginResponse> = service.userlogin(login, pass)
+
+
+
+
+        call.enqueue(object : Callback<LoginResponse> {
+            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                Log.e(TAG, "Failed to fetch photos", t)
+               //Toast.makeText(applicationContext, t.message, Toast.LENGTH_LONG).show()
+            }
+            override fun onResponse(call: Call<LoginResponse>?, response: Response<LoginResponse>) {
+                //progressDialog.dismiss()
+                if (!response.body().error()) {
+                    finish()
+                    SharedPrefManager.getInstance(applicationContext).userLogin(response.body().getUser())
+                    startActivity(Intent(applicationContext, HomeActivity::class.java))
+                } else {
+                    Toast.makeText(applicationContext, "Invalid email or password", Toast.LENGTH_LONG).show()
+                }
+            }
+
+
+        })
+
+
         if (login.isEmpty())
         {
             inlogin.setError("Необходим логин")
@@ -56,7 +92,7 @@ class EnterteActivity : AppCompatActivity(), View.OnClickListener {
             return
         }
 
-        var call: Call<LoginResponse> = ServiceBuilder.getApi()
+
     }
 
     override fun onClick(v: View?) {

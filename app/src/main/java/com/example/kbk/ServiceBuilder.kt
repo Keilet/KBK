@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 // вариант 2 https://dev.to/bensalcie/android-kotlin-get-data-from-restful-api-having-multiple-json-objects-o5a
 object ServiceBuilder {
 
-    private const val URL ="https://kbkapp.000webhostapp.com/"
+    const val URL ="https://kbkapp.000webhostapp.com/"
     //CREATE HTTP CLIENT
     private val okHttp = OkHttpClient.Builder()
 
@@ -22,7 +22,7 @@ object ServiceBuilder {
     //implements Country service Interface
 
 
-    fun <T> getApi ():T{
+   /* fun <T> getApi ():T{
         return retrofit.create(Api.class)
-    }
+    }*/
 }

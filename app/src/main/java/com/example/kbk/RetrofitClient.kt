@@ -3,7 +3,6 @@ package com.example.kbk
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.kbk.activities.TAG
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -15,13 +14,13 @@ private const val TAG = "RetrofitClient"
 // вариант 1 Simplified Coding Retrofit Android Tutorial - Sign Up using Retrofit POST Request
 class RetrofitClient {
     private val BASE_URL: String = "https://kbkapp.000webhostapp.com/"
-    private val service: Api
+/*    private val service: Api
 
-    /*    private lateinit var mInstance: RetrofitClient
-        private lateinit var retrofit: Retrofit*/
+    *//*    private lateinit var mInstance: RetrofitClient
+        private lateinit var retrofit: Retrofit*//*
     init {
         val retrofit = Retrofit.Builder()
-                .baseUrl(ServiceBuilder.URL)
+                .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
         service = retrofit.create(Api::class.java)
@@ -42,7 +41,7 @@ class RetrofitClient {
         })
         return responseLiveData
     }
-}
+}*/
 
 
 /*    private fun RetrofitClient(){

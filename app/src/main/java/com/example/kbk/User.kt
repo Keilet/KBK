@@ -53,7 +53,9 @@ data class User (
         val lastnamephonetic: String,
         val firstnamephonetic: String,
         val middlename: String,
-        val alternatename: String) {
+        val alternatename: String
+        )
+{
 
 
 }

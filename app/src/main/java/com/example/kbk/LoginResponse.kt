@@ -1,8 +1,9 @@
 package com.example.kbk
 
+
 data class LoginResponse(
-        var error: Boolean,
-        var message: String,
-        var user: User) {
+        val error: Boolean,
+        val message: String,
+        val user: User) {
 
 }

@@ -19,7 +19,7 @@
             android:src="@mipmap/ic_launcher"/>
     </item>
 </layer-list>-->
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android" android:opacity="opaque">
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
         android:drawable="@color/purple_700"/>

@@ -57,5 +57,8 @@ data class User (
         )
 {
 
+/*        constructor(id: Int, username: String) : this() {
+                this.username = username;
+        }*/
 
 }

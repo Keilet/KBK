@@ -7,5 +7,6 @@ class Consants {
         const val user_firstname="firstname"
         const val user_lastname="lastname"
         const val user_email="email"
+        const val apilink="https://kbkapp.000webhostapp.com/"
     }
 }

@@ -9,7 +9,7 @@ import retrofit2.http.POST
 interface Api {
 
     @FormUrlEncoded
-    @GET("login")
+    @POST("login.php")
     fun userlogin (   //вариант 3
             @Field("username") username: String,
             @Field("password") password: String

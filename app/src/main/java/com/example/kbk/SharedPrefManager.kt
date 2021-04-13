@@ -15,7 +15,7 @@ class SharedPrefManager {
     private val KEY_USER_ID = "keyuserid"
     private val KEY_USER_NAME = "keyusername"
     private val KEY_USER_EMAIL = "keyuseremail"
-    private val KEY_USER_GENDER = "keyusergender"
+
 
 /*    private fun SharedPrefManager(context: Context): SharedPrefManager? {
         mCtx = context
@@ -50,6 +50,8 @@ class SharedPrefManager {
                 sharedPreferences.getInt(KEY_USER_ID, 0),
                 sharedPreferences.getString(KEY_USER_NAME, null)!!,
                 sharedPreferences.getString(KEY_USER_EMAIL, null),
+
+
         )
     }*/
 

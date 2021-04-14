@@ -17,7 +17,6 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-//private const val TAG = "EnterteActivity"
 
 class EnterteActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -82,7 +81,7 @@ class EnterteActivity : AppCompatActivity(), View.OnClickListener {
                     //rememberUserInfo(response.body()?)
                     startActivity(Intent(applicationContext, Bnv::class.java))
                 } else {
-                    Toast.makeText(applicationContext, "Invalid email or password", Toast.LENGTH_LONG).show()
+                    Toast.makeText(applicationContext, "Неправильный логин или пароль", Toast.LENGTH_LONG).show()
                 }
             }
 

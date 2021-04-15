@@ -13,7 +13,7 @@ interface Api {
     ):Call<LoginResponse>
 
     @GET("allEvents.php")
-    fun allevents():Call<KBKEvent>
+    fun allevents():Call<KBKEvents>
     //@Query("id")id:Int
 /*
     Call<LoginResponse> getUser( // вариант 1

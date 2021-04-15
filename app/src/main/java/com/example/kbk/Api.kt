@@ -1,10 +1,7 @@
 package com.example.kbk
 
 import retrofit2.Call
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface Api {
 
@@ -14,7 +11,10 @@ interface Api {
             @Field("username") username: String,
             @Field("password") password: String
     ):Call<LoginResponse>
-    //fun getUser () : Call<LoginResponse> // вариант 2
+
+    @GET("allEvents.php")
+    fun allevents():Call<KBKEvent>
+    //@Query("id")id:Int
 /*
     Call<LoginResponse> getUser( // вариант 1
         @Field("username") username:String,

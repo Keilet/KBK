@@ -26,10 +26,12 @@ class EventsAdapter (val kbkeventList: ArrayList<KBKEvent>): RecyclerView.Adapte
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bindItems(kbkevent: KBKEvent) {
-            val textViewName = itemView.findViewById(R.id.textViewUsername) as TextView
-            val textViewAddress  = itemView.findViewById(R.id.textViewAddress) as TextView
-            textViewName.text = user.name
-            textViewAddress.text = user.address
+            val textViewTitle = itemView.findViewById(R.id.textViewTitleEvent) as TextView
+            val textViewDate = itemView.findViewById(R.id.textViewDateEvent) as TextView
+            val textViewContent  = itemView.findViewById(R.id.textViewContentEvent) as TextView
+            textViewTitle.text = kbkevent.event_title
+            textViewDate.text = kbkevent.event_send_date.toString()
+            textViewContent.text = kbkevent.event_content
         }
     }
 }

@@ -15,11 +15,5 @@ interface Api {
     @GET("allEvents.php")
     fun allevents():Call<KBKEvents>
     //@Query("id")id:Int
-/*
-    Call<LoginResponse> getUser( // вариант 1
-        @Field("username") username:String,
-    )
-*/
-
 
 }

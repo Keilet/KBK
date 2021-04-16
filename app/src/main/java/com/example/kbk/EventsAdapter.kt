@@ -1,14 +1,18 @@
 package com.example.kbk
 
 import android.view.LayoutInflater
-import android.view.ViewGroup
 import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class EventsAdapter (val kbkeventList: ArrayList<KBKEvent>): RecyclerView.Adapter<EventsAdapter.ViewHolder>() {
+class EventsAdapter(val kbkeventList: List<KBKEvent>): RecyclerView.Adapter<EventsAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventsAdapter.ViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.eventlist_layout, parent, false)
+        val v = LayoutInflater.from(parent.context).inflate(
+            R.layout.eventlist_layout,
+            parent,
+            false
+        )
         return ViewHolder(v)
     }
 

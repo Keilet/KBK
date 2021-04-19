@@ -27,7 +27,7 @@ class EventsAdapter(val kbkeventList: List<KBKEvent>): RecyclerView.Adapter<Even
     }
 
     //the class is hodling the list view
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bindItems(kbkevent: KBKEvent) {
             val textViewTitle = itemView.findViewById(R.id.textViewTitleEvent) as TextView

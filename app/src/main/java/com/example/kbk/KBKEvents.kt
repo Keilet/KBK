@@ -1,4 +1,5 @@
 package com.example.kbk
 
-class KBKEvents (val kbkevents:List<KBKEvent>) {
+data class KBKEvents (val kbkevents:ArrayList<KBKEvent>) {
+
 }

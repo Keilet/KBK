@@ -1,5 +1,6 @@
 package com.example.kbk
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,9 +31,9 @@ class EventsAdapter(val kbkeventList: List<KBKEvent>): RecyclerView.Adapter<Even
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bindItems(kbkevent: KBKEvent) {
-            val textViewTitle = itemView.findViewById(R.id.textViewTitleEvent) as TextView
-            val textViewDate = itemView.findViewById(R.id.textViewDateEvent) as TextView
-            val textViewContent  = itemView.findViewById(R.id.textViewContentEvent) as TextView
+            var textViewTitle = itemView.findViewById(R.id.textViewTitleEvent) as TextView
+            var textViewDate = itemView.findViewById(R.id.textViewDateEvent) as TextView
+            var textViewContent  = itemView.findViewById(R.id.textViewContentEvent) as TextView
             textViewTitle.text = kbkevent.event_title
             textViewDate.text = kbkevent.event_send_date.toString()
             textViewContent.text = kbkevent.event_content

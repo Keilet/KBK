@@ -43,15 +43,16 @@ class HomeFragment : Fragment() {
 
 
         //crating an arraylist to store users using the data class user
-        val eve = ArrayList<KBKEvent>()
+        //val eve = ArrayList<KBKEvent>()
 
         val call: Call<KBKEvents> = service.allevents()
 
 
         call.enqueue(object : Callback<KBKEvents> {
             override fun onResponse(call: Call<KBKEvents>, response: Response<KBKEvents>) {
-                adapter = EventsAdapter(response.body()!!.kbkevents)
-                rec.setAdapter(adapter)
+                rec.adapter=EventsAdapter(response.body()!!.kbkevents)
+                /*adapter = EventsAdapter(response.body()!!.kbkevents)
+                rec.setAdapter(adapter)*/
             }
 
             override fun onFailure(call: Call<KBKEvents>, t: Throwable?) {}

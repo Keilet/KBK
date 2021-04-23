@@ -28,9 +28,9 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         homeViewModel =
-                ViewModelProvider(this).get(HomeViewModel::class.java)
+            ViewModelProvider(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
-        val rec: RecyclerView=root.findViewById(R.id.home_recycler_view)
+        val rec: RecyclerView = root.findViewById(R.id.home_recycler_view)
         rec.setHasFixedSize(true);
         rec.setLayoutManager(LinearLayoutManager(getActivity()));
         val retrofit = Retrofit.Builder()
@@ -50,9 +50,9 @@ class HomeFragment : Fragment() {
 
         call.enqueue(object : Callback<KBKEvents> {
             override fun onResponse(call: Call<KBKEvents>, response: Response<KBKEvents>) {
-                rec.adapter=EventsAdapter(response.body()!!.kbkevents)
-                /*adapter = EventsAdapter(response.body()!!.kbkevents)
-                rec.setAdapter(adapter)*/
+                rec.adapter = EventsAdapter(response.body()!!.kbkevents)
+                adapter = EventsAdapter(response.body()!!.kbkevents)
+                rec.setAdapter(adapter)
             }
 
             override fun onFailure(call: Call<KBKEvents>, t: Throwable?) {}
@@ -69,10 +69,10 @@ class HomeFragment : Fragment() {
 
         //now adding the adapter to recyclerview
         rec.adapter = adapter*/
-  /*      val textView: TextView = root.findViewById(R.id.text_home)
-        homeViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })*/
+        /*      val textView: TextView = root.findViewById(R.id.text_home)
+              homeViewModel.text.observe(viewLifecycleOwner, Observer {
+                  textView.text = it
+              })*/
         return root
     }
 }

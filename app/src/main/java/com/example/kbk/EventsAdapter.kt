@@ -7,7 +7,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class EventsAdapter(val kbkeventList: ArrayList<KBKEvent>): RecyclerView.Adapter<EventsAdapter.ViewHolder>() {
+class EventsAdapter(val kbkeventList: ArrayList<KBKEvent>) :
+    RecyclerView.Adapter<EventsAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventsAdapter.ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(
             R.layout.eventlist_layout,
@@ -33,7 +34,7 @@ class EventsAdapter(val kbkeventList: ArrayList<KBKEvent>): RecyclerView.Adapter
         fun bindItems(kbkevent: KBKEvent) {
             var textViewTitle = itemView.findViewById(R.id.textViewTitleEvent) as TextView
             var textViewDate = itemView.findViewById(R.id.textViewDateEvent) as TextView
-            var textViewContent  = itemView.findViewById(R.id.textViewContentEvent) as TextView
+            var textViewContent = itemView.findViewById(R.id.textViewContentEvent) as TextView
             textViewTitle.text = kbkevent.event_title
             textViewDate.text = kbkevent.event_send_date.toString()
             textViewContent.text = kbkevent.event_content

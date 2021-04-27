@@ -36,7 +36,7 @@ class EventsAdapter(val kbkeventList: ArrayList<KBKEvent>) :
             var textViewDate = itemView.findViewById(R.id.textViewDateEvent) as TextView
             var textViewContent = itemView.findViewById(R.id.textViewContentEvent) as TextView
             textViewTitle.text = kbkevent.event_title
-            textViewDate.text = kbkevent.event_send_date.toString()
+            textViewDate.text = kbkevent.event_send_date
             textViewContent.text = kbkevent.event_content
         }
     }

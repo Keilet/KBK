@@ -44,15 +44,14 @@ class EnterteActivity : AppCompatActivity(), View.OnClickListener {
         entebutton.setOnClickListener(this)
     }
 
-    fun userSignIn()
-    {
+    fun userSignIn() {
         val login: String = inlogin.text.toString().trim()
         val pass: String = inpass.text.toString().trim()
 
         val retrofit = Retrofit.Builder()
-                .baseUrl(ServiceBuilder.URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
+            .baseUrl(ServiceBuilder.URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
         val service: Api = retrofit.create(Api::class.java)
 
         if (login.isEmpty()) {
@@ -68,25 +67,22 @@ class EnterteActivity : AppCompatActivity(), View.OnClickListener {
         }
 
         var call: Call<LoginResponse> = service.userlogin(login, pass)
-        //val call: Call<LoginResponse> = service.fetchContents()
 
         call.enqueue(object : Callback<LoginResponse> {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
-                //Log.e(TAG, "Response received:${response.body()}")
-                //progressDialog.dismiss()
+
                 if (!response.body()!!.error) {
                     finish()
-                    //SharedPrefManager.getInstance(getApplicationContext()).shuserLogin(response.body()?.user)
-                    //var id
-                    //rememberUserInfo(response.body()?)
                     startActivity(Intent(applicationContext, Bnv::class.java))
                 } else {
-                    Toast.makeText(applicationContext, "Неправильный логин или пароль", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        applicationContext,
+                        "Неправильный логин или пароль",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
-
             override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                //Log.e(TAG, "Failed to fetch photos", t)
                 Toast.makeText(applicationContext, t.message, Toast.LENGTH_LONG).show()
             }
         })
@@ -94,7 +90,13 @@ class EnterteActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
-    fun rememberUserInfo(id: Int, username: String, firstname: String, lastname: String, email: String) {
+    fun rememberUserInfo(
+        id: Int,
+        username: String,
+        firstname: String,
+        lastname: String,
+        email: String
+    ) {
         val editor: SharedPreferences.Editor = sharedPreferences!!.edit()
         editor.putString(Consants.user_id, id.toString())
         editor.putString(Consants.user_username, username)

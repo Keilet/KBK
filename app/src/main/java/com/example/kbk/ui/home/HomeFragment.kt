@@ -1,6 +1,7 @@
 package com.example.kbk.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,15 +48,18 @@ class HomeFragment : Fragment() {
 
         val call: Call<KBKEvents> = service.allevents()
 
-
         call.enqueue(object : Callback<KBKEvents> {
-            override fun onResponse(call: Call<KBKEvents>, response: Response<KBKEvents>) {
-                rec.adapter = EventsAdapter(response.body()!!.kbkevents)
-                adapter = EventsAdapter(response.body()!!.kbkevents)
-                rec.setAdapter(adapter)
+            override fun onResponse(call: Call<KBKEvents>, response: Response<KBKEvents>)
+            {
+                var list:ArrayList<KBKEvent> = response.body()!!.events
+                rec.adapter = EventsAdapter(list)
+/*                adapter = EventsAdapter(response.body()!!.events)
+                rec.setAdapter(adapter)*/
             }
 
-            override fun onFailure(call: Call<KBKEvents>, t: Throwable?) {}
+            override fun onFailure(call: Call<KBKEvents>, t: Throwable?) {
+                Log.d("adapter",t.toString())
+            }
         })
 
         //adding some dummy data to the list

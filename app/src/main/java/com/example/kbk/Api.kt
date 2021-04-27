@@ -14,6 +14,5 @@ interface Api {
 
     @GET("allEvents.php")
     fun allevents():Call<KBKEvents>
-    //@Query("id")id:Int
 
 }

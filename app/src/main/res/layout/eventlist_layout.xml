@@ -18,13 +18,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                android:layout_marginBottom="5dp"
                 />
 
             <TextView
                 android:id="@+id/textViewDateEvent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                android:layout_marginBottom="5dp"/>
             <TextView
                 android:id="@+id/textViewContentEvent"
                 android:layout_width="match_parent"

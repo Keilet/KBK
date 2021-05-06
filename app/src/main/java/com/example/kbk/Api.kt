@@ -15,4 +15,10 @@ interface Api {
     @GET("allEvents.php")
     fun allevents():Call<KBKEvents>
 
+    @FormUrlEncoded
+    @POST("dashboard.php")
+    fun dashboardFun (   //вариант 3
+        @Field("date") date: String,
+        @Field("group") group: Int
+    ):Call<Dashboards>
 }

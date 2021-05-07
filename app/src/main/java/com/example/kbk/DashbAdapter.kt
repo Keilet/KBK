@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import java.sql.Time
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -42,9 +43,14 @@ class DashbAdapter(val dashbList: ArrayList<Dashboard>) :
             textViewNumberPair.text = dashb.pair_number.toString()
 
             val nowDate:Date= Date()
-            if(nowDate.day!=6) { val d:String=Consants.weekDay(dashb.pair_number)}
-            textViewStartTime.text =
-            textViewEndTime.text =
+            val d1: Time?
+            val d2: Time?
+            if(nowDate.day!=6) { d1=Consants.startweekDay[dashb.pair_number]
+            d2=Consants.endweekDay[dashb.pair_number]}
+            else {d1=Consants.shortDay[dashb.pair_number]
+            d2=Consants.endshortDay[dashb.pair_number]}
+            textViewStartTime.text =d1.toString()
+            textViewEndTime.text =d2.toString()
             textViewSubject.text = dashb.subject
             textViewTeacher.text = dashb.teacher_name
             textViewNumberCabinet.text = dashb.number_cabinet.toString()

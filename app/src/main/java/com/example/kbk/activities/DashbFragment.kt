@@ -24,16 +24,16 @@ class DashbFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_vpdashb, container, false)
-        val rec: RecyclerView = root.findViewById(R.id.dashb_recycler_view)
+/*        val rec: RecyclerView = root.findViewById(R.id.dashb_recycler_view)
         rec.setHasFixedSize(true);
-        rec.setLayoutManager(LinearLayoutManager(getActivity()));
+        rec.setLayoutManager(LinearLayoutManager(getActivity()));*/
         val retrofit = Retrofit.Builder()
             .baseUrl(ServiceBuilder.URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val service: Api = retrofit.create(Api::class.java)
 
-        rec.layoutManager = LinearLayoutManager(context)
+/*        rec.layoutManager = LinearLayoutManager(context)*/
 
         return root
     }

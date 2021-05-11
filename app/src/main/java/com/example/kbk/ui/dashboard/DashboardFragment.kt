@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.kbk.R
+import com.example.kbk.VPDashbAdapter
+import kotlinx.android.synthetic.main.fragment_dashboard.view.*
 
 class DashboardFragment : Fragment() {
 
@@ -22,7 +24,8 @@ class DashboardFragment : Fragment() {
         dashboardViewModel =
                 ViewModelProvider(this).get(DashboardViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
-
+        root.viewpager_dashboard.adapter=VPDashbAdapter(requireActivity())
         return root
     }
+
 }

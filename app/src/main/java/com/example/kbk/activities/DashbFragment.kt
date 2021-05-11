@@ -13,28 +13,26 @@ import com.example.kbk.Api
 
 import com.example.kbk.R
 import com.example.kbk.ServiceBuilder
+import kotlinx.android.synthetic.main.fragment_vpdashb.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.*
+import kotlin.collections.ArrayList
 
 class DashbFragment : Fragment() {
 
+    private var dashbdates: ArrayList<Calendar> = arrayListOf()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_vpdashb, container, false)
-/*        val rec: RecyclerView = root.findViewById(R.id.dashb_recycler_view)
-        rec.setHasFixedSize(true);
-        rec.setLayoutManager(LinearLayoutManager(getActivity()));*/
-        val retrofit = Retrofit.Builder()
-            .baseUrl(ServiceBuilder.URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        val service: Api = retrofit.create(Api::class.java)
+        return inflater.inflate(R.layout.fragment_vpdashb, container, false)
+    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        arguments?.let {
 
-/*        rec.layoutManager = LinearLayoutManager(context)*/
-
-        return root
+            datedash.text = "Item ${it.getString("date")}"
+        }
     }
 }

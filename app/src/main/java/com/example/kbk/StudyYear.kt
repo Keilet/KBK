@@ -7,11 +7,13 @@ import kotlin.collections.ArrayList
 
 class StudyYear(val dashdate:Date) {
     val mas:ArrayList<Calendar> = arrayListOf()
-
+    val smas:ArrayList<String> = arrayListOf()
     fun getCalendar(): ArrayList<Calendar>{
         return mas
     }
-
+    fun getStringCalendar(): ArrayList<String>{
+        return smas
+    }
     init {
         val d:Date= Date()
         val month:Int=d.month
@@ -30,7 +32,26 @@ class StudyYear(val dashdate:Date) {
             while (i<=finish)
             {
                 mas.add(mn,i)
-                Log.d("day",mas.get(mn).time.year.toString()+":"+mas.get(mn).time.month.toString()+":"+mas.get(mn).time.date.toString())
+                val s:String
+                if((mas.get(mn).time.month+1)/10!=0)
+                    if((mas.get(mn).time.date)/10!=0) {
+                        s = (mas.get(mn).time.year + 3800).toString() + "-" + (mas.get(mn).time.month + 1).toString() + "-" + mas.get(mn).time.date.toString()
+                    }
+                    else
+                    {
+                        s = (mas.get(mn).time.year + 3800).toString() + "-" + (mas.get(mn).time.month + 1).toString() + "-0" + mas.get(mn).time.date.toString()
+                    }
+                else {
+                    if((mas.get(mn).time.date)/10!=0) {
+                        s = (mas.get(mn).time.year + 3800).toString() + "-0" + (mas.get(mn).time.month + 1).toString() + "-" + mas.get(mn).time.date.toString()
+                    }
+                    else
+                    {
+                        s = (mas.get(mn).time.year + 3800).toString() + "-0" + (mas.get(mn).time.month + 1).toString() + "-0" + mas.get(mn).time.date.toString()
+                    }
+                }
+                Log.d("day",s)
+                smas.add(mn,s)
                 i.add(Calendar.DAY_OF_YEAR,1)
                 mn++
             }

@@ -12,32 +12,18 @@ import kotlin.collections.ArrayList
 
 class VPDashbAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
     private lateinit var dashb: Dashboard
-    private var dashbdates: ArrayList<Calendar> = arrayListOf()
+    var dashbdates: java.util.ArrayList<String> = arrayListOf()
     private val t:StudyYear
-    var i:Int=0
     init {
         val d:Date= Date()
         t= StudyYear(d)
-        dashbdates=t.getCalendar()
-        val now:Calendar= Calendar.getInstance()
-        now.set(d.year,d.month,d.date)
-
-        for (n in dashbdates)
-        {
-            if (n.equals(now))
-            {
-                break
-            }
-            i++
-        }
-
+        dashbdates=t.getStringCalendar()
     }
     override fun getItemCount(): Int =this.dashbdates.size
 
     override fun createFragment(position: Int): Fragment = DashbFragment().apply {
         arguments = bundleOf(
             "position" to position
-//            "date" to dashbdates.get(t.getIndex()).time.toString()
         )
 
 

@@ -1,5 +1,7 @@
 package com.example.kbk
 
+import com.google.gson.annotations.SerializedName
+
 data class User (
         val id: Int,
         val auth: String,
@@ -15,6 +17,8 @@ data class User (
         val lastname: String,
         val email: String,
         val emailstop: Int,
+        @SerializedName("id_group")
+        val id_group: Int,
         val icq: String,
         val skype: String,
         val yahoo: String,

@@ -1,6 +1,7 @@
 package com.example.kbk.activities
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -76,6 +77,10 @@ class EnterstActivity : AppCompatActivity(),View.OnClickListener{
                     //SharedPrefManager.getInstance(getApplicationContext()).shuserLogin(response.body()?.user)
                     //var id
                     //rememberUserInfo(response.body()?)
+                    val settings:SharedPreferences  = getSharedPreferences("Account", MODE_PRIVATE)
+                    var id_group:SharedPreferences.Editor=settings.edit()
+                    id_group.putInt("id_group",response.body()!!.user.id_group)
+                    id_group.apply()
                     startActivity(Intent(applicationContext, Bnv::class.java))
                 } else {
                     Toast.makeText(applicationContext, "Неправильный логин или пароль", Toast.LENGTH_LONG).show()

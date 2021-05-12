@@ -32,8 +32,8 @@ class HomeFragment : Fragment() {
             ViewModelProvider(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         val rec: RecyclerView = root.findViewById(R.id.home_recycler_view)
-        rec.setHasFixedSize(true);
-        rec.setLayoutManager(LinearLayoutManager(getActivity()));
+        rec.setHasFixedSize(true)
+        rec.setLayoutManager(LinearLayoutManager(getActivity()))
         val retrofit = Retrofit.Builder()
             .baseUrl(ServiceBuilder.URL)
             .addConverterFactory(GsonConverterFactory.create())
@@ -62,12 +62,8 @@ class HomeFragment : Fragment() {
             }
         })
 
-        //adding some dummy data to the list
-/*        eve.add(KBKEvent(1, "Belal Khan", "Ranchi Jharkhand"))
-        eve.add(KBKEvent("Ramiz Khan", "Ranchi Jharkhand"))
-        eve.add(KBKEvent("Faiz Khan", "Ranchi Jharkhand"))
-        eve.add(KBKEvent("Yashar Khan", "Ranchi Jharkhand"))
 
+/*
         //creating our adapter
         val adapter = EventsAdapter(eve)
 

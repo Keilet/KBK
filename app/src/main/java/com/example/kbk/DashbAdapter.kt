@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import java.sql.Time
+import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class DashbAdapter(val dashbList: ArrayList<Dashboard>) :
     RecyclerView.Adapter<DashbAdapter.ViewHolder>() {
@@ -40,7 +40,7 @@ class DashbAdapter(val dashbList: ArrayList<Dashboard>) :
             var textViewSubject = itemView.findViewById(R.id.textViewSubject) as TextView
             var textViewTeacher = itemView.findViewById(R.id.textViewTeacher) as TextView
             var textViewNumberCabinet = itemView.findViewById(R.id.textViewNumberCabinet) as TextView
-            textViewNumberPair.text = dashb.pair_number.toString()
+            textViewNumberPair.text = dashb.pair_number.toString()+" пара"
 
             val nowDate:Date= Date()
             val d1: Time?
@@ -49,8 +49,8 @@ class DashbAdapter(val dashbList: ArrayList<Dashboard>) :
             d2=Consants.endweekDay[dashb.pair_number]}
             else {d1=Consants.shortDay[dashb.pair_number]
             d2=Consants.endshortDay[dashb.pair_number]}
-            textViewStartTime.text =d1.toString()
-            textViewEndTime.text =d2.toString()
+            textViewStartTime.text =d1.toString().substring(0,d1.toString().length-3)
+            textViewEndTime.text =d2.toString().substring(0,d2.toString().length-3)
             textViewSubject.text = dashb.subject
             textViewTeacher.text = dashb.teacher_name
             textViewNumberCabinet.text = dashb.number_cabinet.toString()

@@ -1,6 +1,7 @@
 package com.example.kbk.activities
 
 
+import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -12,10 +13,16 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
 import com.example.kbk.*
+import com.example.kbk.room.AppDatabase
+import com.example.kbk.room.Rdashboard
+import com.example.kbk.room.RdashboardDao
 import kotlinx.android.synthetic.main.dashboardlayout.*
 
 import kotlinx.android.synthetic.main.fragment_vpdashb.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -40,12 +47,13 @@ class DashbFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         arguments?.let {
-            val settings:SharedPreferences  = requireActivity()!!.getSharedPreferences("Account", Context.MODE_PRIVATE)
+            val settings: SharedPreferences =
+                requireActivity()!!.getSharedPreferences("Account", Context.MODE_PRIVATE)
             var dashbdates: java.util.ArrayList<String> = arrayListOf()
-            val d:Date= Date()
+            val d: Date = Date()
             val t: StudyYear = StudyYear(d)
-            dashbdates=t.getStringCalendar()
-            val str:String = dashbdates.get(it.getInt("position"))
+            dashbdates = t.getStringCalendar()
+            val str: String = dashbdates.get(it.getInt("position"))
             datedash.text = str
             rec.setHasFixedSize(true)
             rec.setLayoutManager(LinearLayoutManager(getActivity()));
@@ -54,20 +62,84 @@ class DashbFragment : Fragment() {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
             val service: Api = retrofit.create(Api::class.java)
-            val id:Int=settings.getInt("id_group",0)
-            val call: Call<Dashboards> = service.dashboardFun(datedash.text.toString(),settings.getInt("id_group",0))
+            val id: Int = settings.getInt("id_group", 0)
+            val db = activity?.let { it1 ->
+                Room.databaseBuilder(
+                    it1.applicationContext,
+                    AppDatabase::class.java, "database"
+                ).build()
+            }
+            val dashbDao = db!!.dashbDao()
+            GlobalScope.launch {
 
-            call.enqueue(object : Callback<Dashboards> {
-                override fun onResponse(call: Call<Dashboards>, response: Response<Dashboards>)
-                {
-                    var list:ArrayList<Dashboard> = response.body()!!.dashb
+                val daoDB: List<Rdashboard> = dashbDao.getAll(id, datedash.text.toString())
+
+                if (daoDB != null) {
+                    var list: ArrayList<Dashboard> = arrayListOf()
+                    for (i in daoDB) {
+                        list.add(
+                            Dashboard(
+                                i.id_dashb,
+                                i.number_cabinet,
+                                i.id_group,
+                                i.date_dashb,
+                                i.pair_number,
+                                i.full_group,
+                                i.year_group,
+                                i.shortname,
+                                i.num_course,
+                                i.subject,
+                                i.teacher_name,
+                                i.firstname,
+                                i.lastname
+                            )
+                        );
+                    }
                     rec.adapter = DashbAdapter(list)
-                }
+                } else {
+                    val call: Call<Dashboards> =
+                        service.dashboardFun(
+                            datedash.text.toString(),
+                            settings.getInt("id_group", 0)
+                        )
 
-                override fun onFailure(call: Call<Dashboards>, t: Throwable?) {
-                    Log.d("adapter",t.toString())
+                    call.enqueue(object : Callback<Dashboards> {
+                        override fun onResponse(
+                            call: Call<Dashboards>,
+                            response: Response<Dashboards>
+                        ) {
+                            var list: ArrayList<Dashboard> = response.body()!!.dashb
+
+                            if (list != null) {
+                                rec.adapter = DashbAdapter(list)
+                                for (i in list) {
+                                    val dbn: Rdashboard = Rdashboard(
+                                        i.id_dashb,
+                                        i.number_cabinet,
+                                        i.id_group,
+                                        i.date_dashb,
+                                        i.pair_number,
+                                        i.full_group,
+                                        i.year_group,
+                                        i.shortname,
+                                        i.num_course,
+                                        i.subject,
+                                        i.teacher_name,
+                                        i.firstname,
+                                        i.lastname,
+                                        false
+                                    )
+                                    dashbDao.insertAll(dbn)
+                                }
+                            }
+                        }
+
+                        override fun onFailure(call: Call<Dashboards>, t: Throwable?) {
+                            Log.d("adapter", t.toString())
+                        }
+                    })
                 }
-            })
+            }
         }
     }
 }

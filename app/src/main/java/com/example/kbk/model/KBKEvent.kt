@@ -1,6 +1,4 @@
-package com.example.kbk
-
-import java.util.*
+package com.example.kbk.model
 
 data class KBKEvent(
     val id_event: Int,

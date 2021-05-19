@@ -1,7 +1,6 @@
-package com.example.kbk.activities
+package com.example.kbk.ui.dashboard
 
 
-import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -9,20 +8,24 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.example.kbk.*
-import com.example.kbk.room.AppDatabase
-import com.example.kbk.room.Rdashboard
-import com.example.kbk.room.RdashboardDao
-import kotlinx.android.synthetic.main.dashboardlayout.*
-
+import com.example.kbk.db.DashboardDatabase
+import com.example.kbk.model.Dashboard
+import com.example.kbk.model.Dashboards
+import com.example.kbk.network.Api
+import com.example.kbk.network.ServiceBuilder
 import kotlinx.android.synthetic.main.fragment_vpdashb.*
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -30,12 +33,16 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
 import kotlin.collections.ArrayList
+import io.reactivex.Observable
+import io.reactivex.Scheduler
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
-
-class DashbFragment : Fragment() {
-
+class DashbFragment : Fragment()
+{
     private var dashbdates: ArrayList<Calendar> = arrayListOf()
     lateinit var rec: RecyclerView
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -63,74 +70,44 @@ class DashbFragment : Fragment() {
                 .build()
             val service: Api = retrofit.create(Api::class.java)
             val id: Int = settings.getInt("id_group", 0)
+
             val db = activity?.let { it1 ->
                 Room.databaseBuilder(
                     it1.applicationContext,
-                    AppDatabase::class.java, "database"
+                    DashboardDatabase::class.java, "database-name"
                 ).build()
             }
-            val dashbDao = db!!.dashbDao()
-            GlobalScope.launch {
+            var curDash:List<Dashboard> = arrayListOf()
+            Observable.fromCallable({
+                curDash = db?.getDashboardDao()?.getDashboards(id,datedash.text.toString())!!;
 
-                val daoDB: List<Rdashboard> = dashbDao.getAll(id, datedash.text.toString())
+            }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe()
 
-                if (daoDB != null) {
-                    var list: ArrayList<Dashboard> = arrayListOf()
-                    for (i in daoDB) {
-                        list.add(
-                            Dashboard(
-                                i.id_dashb,
-                                i.number_cabinet,
-                                i.id_group,
-                                i.date_dashb,
-                                i.pair_number,
-                                i.full_group,
-                                i.year_group,
-                                i.shortname,
-                                i.num_course,
-                                i.subject,
-                                i.teacher_name,
-                                i.firstname,
-                                i.lastname
-                            )
-                        );
-                    }
-                    rec.adapter = DashbAdapter(list)
-                } else {
-                    val call: Call<Dashboards> =
+            if(curDash!=null)
+                rec.adapter = DashbAdapter(curDash)
+
+            val call: Call<Dashboards> =
                         service.dashboardFun(
                             datedash.text.toString(),
                             settings.getInt("id_group", 0)
                         )
 
-                    call.enqueue(object : Callback<Dashboards> {
+            call.enqueue(object : Callback<Dashboards> {
                         override fun onResponse(
                             call: Call<Dashboards>,
                             response: Response<Dashboards>
-                        ) {
+                        )
+                        {
                             var list: ArrayList<Dashboard> = response.body()!!.dashb
 
                             if (list != null) {
                                 rec.adapter = DashbAdapter(list)
-                                for (i in list) {
-                                    val dbn: Rdashboard = Rdashboard(
-                                        i.id_dashb,
-                                        i.number_cabinet,
-                                        i.id_group,
-                                        i.date_dashb,
-                                        i.pair_number,
-                                        i.full_group,
-                                        i.year_group,
-                                        i.shortname,
-                                        i.num_course,
-                                        i.subject,
-                                        i.teacher_name,
-                                        i.firstname,
-                                        i.lastname,
-                                        false
-                                    )
-                                    dashbDao.insertAll(dbn)
+                                runBlocking {
+                                    db?.getDashboardDao()?.addDashboard(list);
                                 }
+
                             }
                         }
 
@@ -140,6 +117,4 @@ class DashbFragment : Fragment() {
                     })
                 }
             }
-        }
     }
-}

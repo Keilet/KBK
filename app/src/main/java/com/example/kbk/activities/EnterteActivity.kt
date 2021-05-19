@@ -9,6 +9,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.preference.PreferenceManager
 import com.example.kbk.*
+import com.example.kbk.model.LoginResponse
+import com.example.kbk.network.Api
+import com.example.kbk.network.Constants
+import com.example.kbk.network.ServiceBuilder
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.enterte.*
 import retrofit2.Call
@@ -98,11 +102,11 @@ class EnterteActivity : AppCompatActivity(), View.OnClickListener {
         email: String
     ) {
         val editor: SharedPreferences.Editor = sharedPreferences!!.edit()
-        editor.putString(Consants.user_id, id.toString())
-        editor.putString(Consants.user_username, username)
-        editor.putString(Consants.user_firstname, firstname)
-        editor.putString(Consants.user_lastname, lastname)
-        editor.putString(Consants.user_email, email)
+        editor.putString(Constants.user_id, id.toString())
+        editor.putString(Constants.user_username, username)
+        editor.putString(Constants.user_firstname, firstname)
+        editor.putString(Constants.user_lastname, lastname)
+        editor.putString(Constants.user_email, email)
         editor.apply()
     }
 

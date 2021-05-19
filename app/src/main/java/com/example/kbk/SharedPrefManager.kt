@@ -2,8 +2,7 @@ package com.example.kbk
 
 import android.content.Context
 import android.content.SharedPreferences
-
-
+import com.example.kbk.model.User
 
 
 class SharedPrefManager {

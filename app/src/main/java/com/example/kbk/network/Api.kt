@@ -1,5 +1,8 @@
-package com.example.kbk
+package com.example.kbk.network
 
+import com.example.kbk.model.Dashboards
+import com.example.kbk.model.KBKEvents
+import com.example.kbk.model.LoginResponse
 import retrofit2.Call
 import retrofit2.http.*
 

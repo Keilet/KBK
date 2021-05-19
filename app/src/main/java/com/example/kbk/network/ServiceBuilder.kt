@@ -1,4 +1,4 @@
-package com.example.kbk
+package com.example.kbk.network
 
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -18,11 +18,4 @@ object ServiceBuilder {
     //create retrofit Instance
     private val retrofit = builder.build()
 
-    //we will use this class to create an anonymous inner class function that
-    //implements Country service Interface
-
-
-   /* fun <T> getApi ():T{
-        return retrofit.create(Api.class)
-    }*/
 }

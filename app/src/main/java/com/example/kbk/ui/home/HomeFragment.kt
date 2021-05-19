@@ -5,12 +5,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kbk.*
+import com.example.kbk.model.KBKEvent
+import com.example.kbk.model.KBKEvents
+import com.example.kbk.network.Api
+import com.example.kbk.network.ServiceBuilder
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

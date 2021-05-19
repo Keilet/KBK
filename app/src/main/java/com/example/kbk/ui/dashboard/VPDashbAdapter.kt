@@ -1,19 +1,17 @@
-package com.example.kbk
+package com.example.kbk.ui.dashboard
 
-import android.util.Log
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.kbk.activities.DashbFragment
+import com.example.kbk.StudyYear
+import com.example.kbk.model.Dashboard
 import java.util.*
-import kotlin.collections.ArrayList
 
 class VPDashbAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
     private lateinit var dashb: Dashboard
     var dashbdates: java.util.ArrayList<String> = arrayListOf()
-    private val t:StudyYear
+    private val t: StudyYear
     init {
         val d:Date= Date()
         t= StudyYear(d)

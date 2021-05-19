@@ -1,8 +1,9 @@
-package com.example.kbk
+package com.example.kbk.model
 
 
 data class LoginResponse(
         val error: Boolean,
         val message: String,
-        val user: User) {
+        val user: User
+) {
 }

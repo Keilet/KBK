@@ -1,9 +1,8 @@
-package com.example.kbk
+package com.example.kbk.network
 
 import java.sql.Time
-import java.util.*
 
-class Consants {
+class Constants {
     companion object {
         const val user_id="id"
         const val user_username="username"

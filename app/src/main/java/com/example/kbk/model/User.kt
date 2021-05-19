@@ -1,4 +1,4 @@
-package com.example.kbk
+package com.example.kbk.model
 
 import com.google.gson.annotations.SerializedName
 

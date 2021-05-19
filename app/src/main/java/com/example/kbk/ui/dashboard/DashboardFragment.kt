@@ -5,13 +5,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.kbk.R
 import com.example.kbk.StudyYear
-import com.example.kbk.VPDashbAdapter
 import kotlinx.android.synthetic.main.fragment_dashboard.view.*
 import java.util.*
 
@@ -27,7 +24,7 @@ class DashboardFragment : Fragment() {
         dashboardViewModel =
                 ViewModelProvider(this).get(DashboardViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
-        root.viewpager_dashboard.adapter=VPDashbAdapter(requireActivity())
+        root.viewpager_dashboard.adapter= VPDashbAdapter(requireActivity())
 
         var dashbdates: ArrayList<String> = arrayListOf()
         var i:Int=0

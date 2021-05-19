@@ -7,10 +7,10 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import com.example.kbk.Api
-import com.example.kbk.LoginResponse
+import com.example.kbk.network.Api
+import com.example.kbk.model.LoginResponse
 import com.example.kbk.R
-import com.example.kbk.ServiceBuilder
+import com.example.kbk.network.ServiceBuilder
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.enterst.*
 import retrofit2.Call

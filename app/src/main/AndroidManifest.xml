@@ -12,8 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.KBK">
-        <activity android:name=".activities.DashbFragment"></activity>
-        <activity android:name=".activities.DashbFragment" />
+        <activity android:name=".ui.dashboard.DashbFragment"></activity>
+        <activity android:name=".ui.dashboard.DashbFragment" />
         <activity
             android:name=".activities.SplashActivity"
             android:screenOrientation="portrait"

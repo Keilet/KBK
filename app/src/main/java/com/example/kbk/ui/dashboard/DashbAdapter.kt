@@ -1,17 +1,19 @@
-package com.example.kbk
+package com.example.kbk.ui.dashboard
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.kbk.model.Dashboard
+import com.example.kbk.R
+import com.example.kbk.network.Constants
 import java.sql.Time
-import java.text.SimpleDateFormat
 import java.util.*
 
-class DashbAdapter(val dashbList: ArrayList<Dashboard>) :
+class DashbAdapter(val dashbList: List<Dashboard>) :
     RecyclerView.Adapter<DashbAdapter.ViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DashbAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(
             R.layout.dashboardlayout,
             parent,
@@ -21,7 +23,7 @@ class DashbAdapter(val dashbList: ArrayList<Dashboard>) :
     }
 
     //this method is binding the data on the list
-    override fun onBindViewHolder(holder: DashbAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindItems(dashbList[position])
     }
 
@@ -45,10 +47,10 @@ class DashbAdapter(val dashbList: ArrayList<Dashboard>) :
             val nowDate:Date= Date()
             val d1: Time?
             val d2: Time?
-            if(nowDate.day!=6) { d1=Consants.startweekDay[dashb.pair_number]
-            d2=Consants.endweekDay[dashb.pair_number]}
-            else {d1=Consants.shortDay[dashb.pair_number]
-            d2=Consants.endshortDay[dashb.pair_number]}
+            if(nowDate.day!=6) { d1= Constants.startweekDay[dashb.pair_number]
+            d2= Constants.endweekDay[dashb.pair_number]}
+            else {d1= Constants.shortDay[dashb.pair_number]
+            d2= Constants.endshortDay[dashb.pair_number]}
             textViewStartTime.text =d1.toString().substring(0,d1.toString().length-3)
             textViewEndTime.text =d2.toString().substring(0,d2.toString().length-3)
             textViewSubject.text = dashb.subject

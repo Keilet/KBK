@@ -36,6 +36,7 @@ import kotlin.collections.ArrayList
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 
 class DashbFragment : Fragment()
@@ -78,15 +79,46 @@ class DashbFragment : Fragment()
                 ).build()
             }
             var curDash:List<Dashboard> = arrayListOf()
+
             Observable.fromCallable({
                 curDash = db?.getDashboardDao()?.getDashboards(id,datedash.text.toString())!!;
-
             }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe()
+                .subscribe(
+                    Consumer {
+                        val z:Int=(d.month+1)/10
+                        var s:String
+                        if(z!=0)
+                        {
+                            if(d.date/10!=0)
+                            {
+                                s=""+(d.year + 1900) + "-" + (d.month + 1) + "-" + d.date
+                            }
+                            else
+                            {
+                                s=""+(d.year + 1900) + "-" + (d.month + 1) + "-0" + d.date
+                            }
+                        }
+                        else
+                        {
+                            if(d.date/10!=0)
+                            {
+                                s="" + (d.year + 1900) + "-0" + (d.month + 1) + "-" + d.date
+                            }
+                            else
+                            {
+                                s="" + (d.year + 1900) + "-0" + (d.month + 1) + "-0" + d.date
+                            }
+                        }
+                        val inner:ArrayList<Dashboard> = arrayListOf()
+                        for(i in curDash)
+                        {
+                            if(i.date_dashb<s) inner.add(i)
+                        }
+                        rec.adapter=DashbAdapter(inner)}
+                )
 
-            if(curDash!=null)
-                rec.adapter = DashbAdapter(curDash)
+
 
             val call: Call<Dashboards> =
                         service.dashboardFun(

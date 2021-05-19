@@ -11,7 +11,7 @@ import com.example.kbk.network.Constants
 import java.sql.Time
 import java.util.*
 
-class DashbAdapter(val dashbList: List<Dashboard>) :
+data class DashbAdapter(val dashbList: List<Dashboard>) :
     RecyclerView.Adapter<DashbAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(

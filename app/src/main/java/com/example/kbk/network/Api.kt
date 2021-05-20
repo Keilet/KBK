@@ -24,4 +24,10 @@ interface Api {
         @Query("date") date: String,
         @Query("group") group: Int
     ):Call<Dashboards>
+
+    @GET("dashboard2.php")
+    fun dashboard2Fun (   //вариант 3
+        @Query("date") date: String,
+        @Query("idu") idu: Int
+    ):Call<Dashboards>
 }

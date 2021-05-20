@@ -39,20 +39,20 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 
-class DashbFragment : Fragment()
-{
+class DashbFragment : Fragment() {
     private var dashbdates: ArrayList<Calendar> = arrayListOf()
     lateinit var rec: RecyclerView
-
+    private lateinit var s: String
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_vpdashb, container, false)
-        rec= root.findViewById(R.id.dashb_recycler_view)
+        rec = root.findViewById(R.id.dashb_recycler_view)
         return root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         arguments?.let {
             val settings: SharedPreferences =
@@ -71,82 +71,143 @@ class DashbFragment : Fragment()
                 .build()
             val service: Api = retrofit.create(Api::class.java)
             val id: Int = settings.getInt("id_group", 0)
-
-            val db = activity?.let { it1 ->
-                Room.databaseBuilder(
-                    it1.applicationContext,
-                    DashboardDatabase::class.java, "database-name"
-                ).build()
-            }
-            var curDash:List<Dashboard> = arrayListOf()
-
-            Observable.fromCallable({
-                curDash = db?.getDashboardDao()?.getDashboards(id,datedash.text.toString())!!;
-            }).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                    Consumer {
-                        val z:Int=(d.month+1)/10
-                        var s:String
-                        if(z!=0)
-                        {
-                            if(d.date/10!=0)
-                            {
-                                s=""+(d.year + 1900) + "-" + (d.month + 1) + "-" + d.date
-                            }
-                            else
-                            {
-                                s=""+(d.year + 1900) + "-" + (d.month + 1) + "-0" + d.date
-                            }
-                        }
-                        else
-                        {
-                            if(d.date/10!=0)
-                            {
-                                s="" + (d.year + 1900) + "-0" + (d.month + 1) + "-" + d.date
-                            }
-                            else
-                            {
-                                s="" + (d.year + 1900) + "-0" + (d.month + 1) + "-0" + d.date
-                            }
-                        }
-                        val inner:ArrayList<Dashboard> = arrayListOf()
-                        for(i in curDash)
-                        {
-                            if(i.date_dashb<s) inner.add(i)
-                        }
-                        rec.adapter=DashbAdapter(inner)}
-                )
-
-
-
-            val call: Call<Dashboards> =
-                        service.dashboardFun(
-                            datedash.text.toString(),
-                            settings.getInt("id_group", 0)
-                        )
-
-            call.enqueue(object : Callback<Dashboards> {
-                        override fun onResponse(
-                            call: Call<Dashboards>,
-                            response: Response<Dashboards>
-                        )
-                        {
-                            var list: ArrayList<Dashboard> = response.body()!!.dashb
-
-                            if (list != null) {
-                                rec.adapter = DashbAdapter(list)
-                                runBlocking {
-                                    db?.getDashboardDao()?.addDashboard(list);
-                                }
-
-                            }
-                        }
-
-                        override fun onFailure(call: Call<Dashboards>, t: Throwable?) {
-                            Log.d("adapter", t.toString())
-                        }
-                    })
+            val idu: Int = settings.getInt("idu", 0)
+            if (id != 0) {
+                val db = activity?.let { it1 ->
+                    Room.databaseBuilder(
+                        it1.applicationContext,
+                        DashboardDatabase::class.java, "database-name"
+                    ).build()
                 }
+                var curDash: List<Dashboard> = arrayListOf()
+
+                Observable.fromCallable({
+                    curDash = db?.getDashboardDao()?.getDashboards(id, datedash.text.toString())!!;
+                }).subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                        Consumer {
+                            val z: Int = (d.month + 1) / 10
+                            if (z != 0) {
+                                if (d.date / 10 != 0) {
+                                    s = "" + (d.year + 1900) + "-" + (d.month + 1) + "-" + d.date
+                                } else {
+                                    s = "" + (d.year + 1900) + "-" + (d.month + 1) + "-0" + d.date
+                                }
+                            } else {
+                                if (d.date / 10 != 0) {
+                                    s = "" + (d.year + 1900) + "-0" + (d.month + 1) + "-" + d.date
+                                } else {
+                                    s = "" + (d.year + 1900) + "-0" + (d.month + 1) + "-0" + d.date
+                                }
+                            }
+                            val inner: ArrayList<Dashboard> = arrayListOf()
+                            for (i in curDash) {
+                                if (i.date_dashb < s) inner.add(i)
+                            }
+                            rec.adapter = DashbAdapter(inner)
+                        }
+                    )
+
+
+                val call: Call<Dashboards> =
+                    service.dashboardFun(
+                        datedash.text.toString(),
+                        settings.getInt("id_group", 0)
+                    )
+
+                call.enqueue(object : Callback<Dashboards> {
+                    override fun onResponse(
+                        call: Call<Dashboards>,
+                        response: Response<Dashboards>
+                    ) {
+                        var list: ArrayList<Dashboard> = response.body()!!.dashb
+
+                        if (list != null) {
+                            rec.adapter = DashbAdapter(list)
+                            for (i in list) {
+                                if (i.date_dashb.equals(s)) {
+                                    runBlocking {
+                                        db?.getDashboardDao()?.addDashboard(list);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    override fun onFailure(call: Call<Dashboards>, t: Throwable?) {
+                        Log.d("adapter", t.toString())
+                    }
+                })
             }
+            if (idu != 0) {
+                val db = activity?.let { it1 ->
+                    Room.databaseBuilder(
+                        it1.applicationContext,
+                        DashboardDatabase::class.java, "database-name"
+                    ).build()
+                }
+                var curDash: List<Dashboard> = arrayListOf()
+
+                Observable.fromCallable({
+                    curDash = db?.getDashboardDao()?.getDashboards(id, datedash.text.toString())!!;
+                }).subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                        Consumer {
+                            val z: Int = (d.month + 1) / 10
+                            if (z != 0) {
+                                if (d.date / 10 != 0) {
+                                    s = "" + (d.year + 1900) + "-" + (d.month + 1) + "-" + d.date
+                                } else {
+                                    s = "" + (d.year + 1900) + "-" + (d.month + 1) + "-0" + d.date
+                                }
+                            } else {
+                                if (d.date / 10 != 0) {
+                                    s = "" + (d.year + 1900) + "-0" + (d.month + 1) + "-" + d.date
+                                } else {
+                                    s = "" + (d.year + 1900) + "-0" + (d.month + 1) + "-0" + d.date
+                                }
+                            }
+                            val inner: ArrayList<Dashboard> = arrayListOf()
+                            for (i in curDash) {
+                                if (i.date_dashb < s) inner.add(i)
+                            }
+                            rec.adapter = DashbAdapter(inner)
+                        }
+                    )
+
+
+                val call: Call<Dashboards> =
+                    service.dashboard2Fun(
+                        datedash.text.toString(),
+                        settings.getInt("idu", 0)
+                    )
+
+                call.enqueue(object : Callback<Dashboards> {
+                    override fun onResponse(
+                        call: Call<Dashboards>,
+                        response: Response<Dashboards>
+                    ) {
+                        var list: ArrayList<Dashboard> = response.body()!!.dashb
+
+                        if (list != null) {
+                            rec.adapter = DashbAdapter(list)
+                            for (i in list) {
+                                if (i.date_dashb.equals(s)) {
+                                    runBlocking {
+                                        db?.getDashboardDao()?.addDashboard(list);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    override fun onFailure(call: Call<Dashboards>, t: Throwable?) {
+                        Log.d("adapter", t.toString())
+                    }
+                })
+            }
+        }
     }
+}

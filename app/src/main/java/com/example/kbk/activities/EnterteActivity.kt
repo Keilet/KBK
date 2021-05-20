@@ -77,6 +77,10 @@ class EnterteActivity : AppCompatActivity(), View.OnClickListener {
 
                 if (!response.body()!!.error) {
                     finish()
+                    val settings:SharedPreferences  = getSharedPreferences("Account", MODE_PRIVATE)
+                    var idu:SharedPreferences.Editor=settings.edit()
+                    idu.putInt("idu",response.body()!!.user.id)
+                    idu.apply()
                     startActivity(Intent(applicationContext, Bnv::class.java))
                 } else {
                     Toast.makeText(

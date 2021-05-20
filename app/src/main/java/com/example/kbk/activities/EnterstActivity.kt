@@ -1,5 +1,6 @@
 package com.example.kbk.activities
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -97,5 +98,13 @@ class EnterstActivity : AppCompatActivity(),View.OnClickListener{
     }
     override fun onClick(v: View?) {
         userSignIn()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val settings: SharedPreferences =
+            this!!.getSharedPreferences("Account", Context.MODE_PRIVATE)
+        val id: Int = settings.getInt("id_group", 0)
+        if(id!=0) startActivity(Intent(applicationContext, Bnv::class.java))
     }
 }

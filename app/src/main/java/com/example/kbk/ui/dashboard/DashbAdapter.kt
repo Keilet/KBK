@@ -1,5 +1,7 @@
 package com.example.kbk.ui.dashboard
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,8 +36,10 @@ data class DashbAdapter(val dashbList: List<Dashboard>) :
 
     //the class is hodling the list view
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
+        val settings: SharedPreferences =
+            requireActivity()!!.getSharedPreferences("Account", Context.MODE_PRIVATE)
         fun bindItems(dashb: Dashboard) {
+
             var textViewNumberPair = itemView.findViewById(R.id.textViewNumberPair) as TextView
             var textViewStartTime = itemView.findViewById(R.id.textViewStartTime) as TextView
             var textViewEndTime = itemView.findViewById(R.id.textViewEndTime) as TextView
@@ -54,8 +58,10 @@ data class DashbAdapter(val dashbList: List<Dashboard>) :
             textViewStartTime.text =d1.toString().substring(0,d1.toString().length-3)
             textViewEndTime.text =d2.toString().substring(0,d2.toString().length-3)
             textViewSubject.text = dashb.subject
-            textViewTeacher.text = dashb.teacher_name
             textViewNumberCabinet.text = dashb.number_cabinet.toString()
+            val idu: Int = settings.getInt("idu", 0)
+            if (idu != 0) {textViewTeacher.text = dashb.full_group}
+            else{textViewTeacher.text = dashb.full_group}
         }
     }
 }

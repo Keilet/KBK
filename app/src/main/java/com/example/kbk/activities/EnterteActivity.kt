@@ -1,5 +1,6 @@
 package com.example.kbk.activities
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -27,15 +28,12 @@ class EnterteActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var inlogin: TextInputEditText
     lateinit var inpass: TextInputEditText
 
-    private var sharedPreferences: SharedPreferences? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.enterte)
         inlogin = findViewById(R.id.login)
         inpass = findViewById(R.id.pass)
 
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
 
         val toolbar = findViewById<View>(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
@@ -98,23 +96,15 @@ class EnterteActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
-    fun rememberUserInfo(
-        id: Int,
-        username: String,
-        firstname: String,
-        lastname: String,
-        email: String
-    ) {
-        val editor: SharedPreferences.Editor = sharedPreferences!!.edit()
-        editor.putString(Constants.user_id, id.toString())
-        editor.putString(Constants.user_username, username)
-        editor.putString(Constants.user_firstname, firstname)
-        editor.putString(Constants.user_lastname, lastname)
-        editor.putString(Constants.user_email, email)
-        editor.apply()
-    }
-
     override fun onClick(v: View?) {
         userSignIn()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val settings: SharedPreferences =
+            this!!.getSharedPreferences("Account", Context.MODE_PRIVATE)
+        val idu: Int = settings.getInt("idu", 0)
+        if(idu!=0) startActivity(Intent(applicationContext, Bnv::class.java))
     }
 }

@@ -43,6 +43,7 @@ class DashbFragment : Fragment() {
     private var dashbdates: ArrayList<Calendar> = arrayListOf()
     lateinit var rec: RecyclerView
     private lateinit var s: String
+    private lateinit var contextThis: Context
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -60,6 +61,7 @@ class DashbFragment : Fragment() {
             var dashbdates: java.util.ArrayList<String> = arrayListOf()
             val d: Date = Date()
             val t: StudyYear = StudyYear(d)
+            contextThis= requireActivity()
             dashbdates = t.getStringCalendar()
             val str: String = dashbdates.get(it.getInt("position"))
             datedash.text = str
@@ -105,7 +107,7 @@ class DashbFragment : Fragment() {
                             for (i in curDash) {
                                 if (i.date_dashb < s) inner.add(i)
                             }
-                            rec.adapter = DashbAdapter(inner)
+                            rec.adapter = DashbAdapter(inner,contextThis)
                         }
                     )
 
@@ -124,7 +126,7 @@ class DashbFragment : Fragment() {
                         var list: ArrayList<Dashboard> = response.body()!!.dashb
 
                         if (list != null) {
-                            rec.adapter = DashbAdapter(list)
+                            rec.adapter = DashbAdapter(list,contextThis)
                             for (i in list) {
                                 if (i.date_dashb.equals(s)) {
                                     runBlocking {
@@ -150,7 +152,7 @@ class DashbFragment : Fragment() {
                 var curDash: List<Dashboard> = arrayListOf()
 
                 Observable.fromCallable({
-                    curDash = db?.getDashboardDao()?.getDashboards(id, datedash.text.toString())!!;
+                    curDash = db?.getDashboardDao()?.getDashboards2(idu, datedash.text.toString())!!;
                 }).subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
@@ -173,7 +175,7 @@ class DashbFragment : Fragment() {
                             for (i in curDash) {
                                 if (i.date_dashb < s) inner.add(i)
                             }
-                            rec.adapter = DashbAdapter(inner)
+                            rec.adapter = DashbAdapter(inner,contextThis)
                         }
                     )
 
@@ -192,7 +194,7 @@ class DashbFragment : Fragment() {
                         var list: ArrayList<Dashboard> = response.body()!!.dashb
 
                         if (list != null) {
-                            rec.adapter = DashbAdapter(list)
+                            rec.adapter = DashbAdapter(list,contextThis)
                             for (i in list) {
                                 if (i.date_dashb.equals(s)) {
                                     runBlocking {

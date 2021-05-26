@@ -15,6 +15,10 @@ interface DashboardDao {
     @Query("SELECT * FROM dashboards WHERE id_group=:id and date_dashb=:day")
     fun getDashboards(id:Int,day:String) : List<Dashboard>
 
+//    для преподавателя
+    @Query("SELECT * FROM dashboards WHERE idu=:idu and date_dashb=:day")
+    fun getDashboards2(idu:Int,day:String) : List<Dashboard>
+
 //    @Query("SELECT * FROM dashboards")
 //    fun getDashboards() : List<Dashboard>
 }

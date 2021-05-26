@@ -13,7 +13,7 @@ import com.example.kbk.network.Constants
 import java.sql.Time
 import java.util.*
 
-data class DashbAdapter(val dashbList: List<Dashboard>) :
+data class DashbAdapter(val dashbList: List<Dashboard>,val context: Context) :
     RecyclerView.Adapter<DashbAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(
@@ -37,7 +37,7 @@ data class DashbAdapter(val dashbList: List<Dashboard>) :
     //the class is hodling the list view
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val settings: SharedPreferences =
-            requireActivity()!!.getSharedPreferences("Account", Context.MODE_PRIVATE)
+            context!!.getSharedPreferences("Account", Context.MODE_PRIVATE)
         fun bindItems(dashb: Dashboard) {
 
             var textViewNumberPair = itemView.findViewById(R.id.textViewNumberPair) as TextView
@@ -61,7 +61,9 @@ data class DashbAdapter(val dashbList: List<Dashboard>) :
             textViewNumberCabinet.text = dashb.number_cabinet.toString()
             val idu: Int = settings.getInt("idu", 0)
             if (idu != 0) {textViewTeacher.text = dashb.full_group}
-            else{textViewTeacher.text = dashb.full_group}
+            else{textViewTeacher.text = dashb.teacher_name}
+//            textViewTeacher.text = dashb.full_group
+//            textViewTeacher.text = dashb.teacher_name
         }
     }
 }

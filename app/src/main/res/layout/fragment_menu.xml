@@ -62,10 +62,24 @@
         android:orientation="vertical"
         android:background="@drawable/light">
         <Button
-            android:id="@+id/teachers"
+            android:id="@+id/gradebook"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="13dp"
+            android:layout_marginHorizontal="25dp"
+            android:textAllCaps="false"
+            android:text="Зачетная книжка"
+            style="?android:attr/borderlessButtonStyle"
+            android:background="@color/purple_500"
+            android:gravity="fill_vertical"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            />
+        <Button
+            android:id="@+id/teachers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="13dp"
             android:layout_marginHorizontal="25dp"
             android:textAllCaps="false"
             android:text="Преподаватели"

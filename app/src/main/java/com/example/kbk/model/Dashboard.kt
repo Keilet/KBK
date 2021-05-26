@@ -10,6 +10,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 @Keep
 data class Dashboard (@PrimaryKey(autoGenerate = false) val id_dashb: Int,
+                      val idu:Int,
                       val number_cabinet:Int,
                       val id_group:Int,
                       val date_dashb:String,

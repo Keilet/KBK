@@ -41,6 +41,9 @@
             android:name=".activities.Bnv"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.menu.gradebook.GradeBActivity"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="preloaded_fonts"

@@ -15,12 +15,15 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.kbk.R
 import com.example.kbk.activities.Bnv
 import com.example.kbk.activities.MainActivity
+import com.example.kbk.ui.menu.gradebook.GradeBActivity
 import kotlinx.android.synthetic.main.fragment_menu.*
 
 class MenuFragment : Fragment() {
 
+//    private lateinit var contextThis: Context
     private lateinit var menuViewModel: MenuViewModel
     private lateinit var ex:Button
+    private lateinit var gradeb:Button
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -29,6 +32,7 @@ class MenuFragment : Fragment() {
         menuViewModel =
             ViewModelProvider(this).get(MenuViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_menu, container, false)
+//            contextThis= requireActivity()
             ex=root.findViewById(R.id.exit)
             ex.setOnClickListener{
                 val settings: SharedPreferences =
@@ -38,6 +42,10 @@ class MenuFragment : Fragment() {
                 editor.apply()
                 requireActivity().finish()
             }
+        gradeb=root.findViewById(R.id.gradebook)
+        gradeb.setOnClickListener{
+            startActivity(Intent(context, GradeBActivity::class.java))
+        }
         return root
     }
 }

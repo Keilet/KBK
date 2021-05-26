@@ -82,6 +82,9 @@ class EnterstActivity : AppCompatActivity(),View.OnClickListener{
                     var id_group:SharedPreferences.Editor=settings.edit()
                     id_group.putInt("id_group",response.body()!!.user.id_group)
                     id_group.apply()
+                    var ids:SharedPreferences.Editor=settings.edit()
+                    ids.putInt("ids",response.body()!!.user.id)
+                    ids.apply()
                     startActivity(Intent(applicationContext, Bnv::class.java))
                 } else {
                     Toast.makeText(applicationContext, "Неправильный логин или пароль", Toast.LENGTH_LONG).show()

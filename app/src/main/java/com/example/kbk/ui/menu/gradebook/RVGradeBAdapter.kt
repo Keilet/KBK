@@ -17,7 +17,7 @@ import java.util.*
 
 data class RVGradeBAdapter(val gradebList: List<GradeBook>):
     RecyclerView.Adapter<RVGradeBAdapter.ViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RVGradeBAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(
             R.layout.menu_layout_gradeb,
             parent,

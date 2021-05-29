@@ -1,19 +1,23 @@
 package com.example.kbk.network
 
-import com.example.kbk.model.Dashboards
-import com.example.kbk.model.GradeBooks
-import com.example.kbk.model.KBKEvents
-import com.example.kbk.model.LoginResponse
+import com.example.kbk.model.*
 import retrofit2.Call
 import retrofit2.http.*
 
 interface Api {
 
     @FormUrlEncoded
-    @POST("login.php")
-    fun userlogin (
+    @POST("loginstudent.php")
+    fun userloginstudent (
             @Field("username") username: String,
             @Field("password") password: String
+    ):Call<LoginResponse>
+
+    @FormUrlEncoded
+    @POST("loginteacher.php")
+    fun userloginteacher (
+        @Field("username") username: String,
+        @Field("password") password: String
     ):Call<LoginResponse>
 
     @GET("allEvents.php")
@@ -37,4 +41,7 @@ interface Api {
         @Query("ids") ids: Int,
         @Query("sem") sem: Int
     ):Call<GradeBooks>
+
+    @GET("allTeachers.php")
+    fun allteachers():Call<Teachers>
 }

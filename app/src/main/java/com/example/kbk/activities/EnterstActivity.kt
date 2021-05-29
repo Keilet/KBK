@@ -66,7 +66,7 @@ class EnterstActivity : AppCompatActivity(),View.OnClickListener{
             return
         }
 
-        var call: Call<LoginResponse> = service.userlogin(login, pass)
+        var call: Call<LoginResponse> = service.userloginstudent(login, pass)
         //val call: Call<LoginResponse> = service.fetchContents()
 
         call.enqueue(object : Callback<LoginResponse> {
@@ -85,6 +85,21 @@ class EnterstActivity : AppCompatActivity(),View.OnClickListener{
                     var ids:SharedPreferences.Editor=settings.edit()
                     ids.putInt("ids",response.body()!!.user.id)
                     ids.apply()
+                    var firstname:SharedPreferences.Editor=settings.edit()
+                    firstname.putString("firstname",response.body()!!.user.firstname)
+                    firstname.apply()
+                    var lastname:SharedPreferences.Editor=settings.edit()
+                    lastname.putString("lastname",response.body()!!.user.lastname)
+                    lastname.apply()
+                    var shortname:SharedPreferences.Editor=settings.edit()
+                    shortname.putString("shortname",response.body()!!.user.shortname)
+                    shortname.apply()
+                    var year_group:SharedPreferences.Editor=settings.edit()
+                    year_group.putInt("year_group",response.body()!!.user.year_group)
+                    year_group.apply()
+                    var num_course:SharedPreferences.Editor=settings.edit()
+                    num_course.putInt("num_course",response.body()!!.user.num_course)
+                    num_course.apply()
                     startActivity(Intent(applicationContext, Bnv::class.java))
                 } else {
                     Toast.makeText(applicationContext, "Неправильный логин или пароль", Toast.LENGTH_LONG).show()

@@ -68,7 +68,7 @@ class EnterteActivity : AppCompatActivity(), View.OnClickListener {
             return
         }
 
-        var call: Call<LoginResponse> = service.userlogin(login, pass)
+        var call: Call<LoginResponse> = service.userloginteacher(login, pass)
 
         call.enqueue(object : Callback<LoginResponse> {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
@@ -79,6 +79,12 @@ class EnterteActivity : AppCompatActivity(), View.OnClickListener {
                     var idu:SharedPreferences.Editor=settings.edit()
                     idu.putInt("idu",response.body()!!.user.id)
                     idu.apply()
+                    var firstname:SharedPreferences.Editor=settings.edit()
+                    firstname.putString("firstname",response.body()!!.user.firstname)
+                    firstname.apply()
+                    var lastname:SharedPreferences.Editor=settings.edit()
+                    lastname.putString("lastname",response.body()!!.user.lastname)
+                    lastname.apply()
                     startActivity(Intent(applicationContext, Bnv::class.java))
                 } else {
                     Toast.makeText(

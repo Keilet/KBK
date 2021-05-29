@@ -44,6 +44,15 @@
         <activity
             android:name=".ui.menu.gradebook.GradeBActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.menu.teachers.AllTeachers"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.menu.Feedback"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.menu.Documents"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="preloaded_fonts"

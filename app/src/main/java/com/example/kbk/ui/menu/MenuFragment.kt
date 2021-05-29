@@ -16,6 +16,7 @@ import com.example.kbk.R
 import com.example.kbk.activities.Bnv
 import com.example.kbk.activities.MainActivity
 import com.example.kbk.ui.menu.gradebook.GradeBActivity
+import com.example.kbk.ui.menu.teachers.AllTeachers
 import kotlinx.android.synthetic.main.fragment_menu.*
 
 class MenuFragment : Fragment() {
@@ -24,6 +25,12 @@ class MenuFragment : Fragment() {
     private lateinit var menuViewModel: MenuViewModel
     private lateinit var ex:Button
     private lateinit var gradeb:Button
+    private lateinit var allteach:Button
+    private lateinit var feedb:Button
+    private lateinit var docs:Button
+    private lateinit var uname:TextView
+    private lateinit var ugroup:TextView
+    private lateinit var stgroup: String
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -32,6 +39,8 @@ class MenuFragment : Fragment() {
         menuViewModel =
             ViewModelProvider(this).get(MenuViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_menu, container, false)
+        val settings: SharedPreferences =
+            requireActivity()!!.getSharedPreferences("Account", Context.MODE_PRIVATE)
 //            contextThis= requireActivity()
             ex=root.findViewById(R.id.exit)
             ex.setOnClickListener{
@@ -46,6 +55,35 @@ class MenuFragment : Fragment() {
         gradeb.setOnClickListener{
             startActivity(Intent(context, GradeBActivity::class.java))
         }
+        allteach=root.findViewById(R.id.teachers)
+        allteach.setOnClickListener{
+            startActivity(Intent(context, AllTeachers::class.java))
+        }
+        feedb=root.findViewById(R.id.feedback)
+        feedb.setOnClickListener{
+            startActivity(Intent(context, Feedback::class.java))
+        }
+        docs=root.findViewById(R.id.documents)
+        docs.setOnClickListener{
+            startActivity(Intent(context, Documents::class.java))
+        }
+        uname=root.findViewById(R.id.textViewName)
+        val name: String = settings.getString("firstname", "")+" "+settings.getString("lastname", "")
+        uname.text = name
+        ugroup=root.findViewById(R.id.textViewGroup)
+        val idu: Int = settings.getInt("idu", 0)
+        val ids: Int = settings.getInt("ids", 0)
+        if (idu != 0) {
+            ugroup.text = "Преподаватель"
+            uname.text = name}
+        if (ids != 0){
+            var year_group:Int=settings.getInt("year_group", 0)
+            year_group=year_group%100
+            stgroup=year_group.toString()+"-"+settings.getString("shortname", "")+"-"+settings.getInt("num_course", 0)
+            ugroup.text =stgroup
+            uname.text = name
+        }
+        else ugroup.text ="Войдите в аккаунт"
         return root
     }
 }

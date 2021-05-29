@@ -5,16 +5,19 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.kbk.R
 import com.example.kbk.StudyYear
+import com.example.kbk.ui.dashboard.dialogs.SearchDialogFragment
 import kotlinx.android.synthetic.main.fragment_dashboard.view.*
 import java.util.*
 
 class DashboardFragment : Fragment() {
 
     private lateinit var dashboardViewModel: DashboardViewModel
+    private lateinit var searchd: Button
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -67,6 +70,16 @@ class DashboardFragment : Fragment() {
         }
         Log.d("index",index.toString())
         root.viewpager_dashboard.setCurrentItem(index)
+
+        searchd=root.findViewById(R.id.search)
+        searchd.setOnClickListener{
+            val searchDialogFragment = SearchDialogFragment()
+            val manager = requireFragmentManager()
+            searchDialogFragment.show(manager, "searchDialog")
+        }
+
+
+
         return root
     }
 

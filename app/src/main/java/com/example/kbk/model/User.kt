@@ -14,12 +14,20 @@ data class User (
         val username: String,
         val password: String,
         val idnumber: String,
+        @SerializedName("firstname")
         val firstname:String,
+        @SerializedName("lastname")
         val lastname: String,
         val email: String,
         val emailstop: Int,
         @SerializedName("id_group")
         val id_group: Int,
+        @SerializedName("shortname")
+        val shortname:String,
+        @SerializedName("year_group")
+        val year_group:Int,
+        @SerializedName("num_course")
+        val num_course:Int,
         val icq: String,
         val skype: String,
         val yahoo: String,

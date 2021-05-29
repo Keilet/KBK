@@ -58,8 +58,9 @@ class GradeBFragment:Fragment() {
             call.enqueue(object : Callback<GradeBooks> {
                 override fun onResponse(call: Call<GradeBooks>, response: Response<GradeBooks>)
                 {
-                    var list:ArrayList<GradeBook> = response.body()!!.gradeb
-                    rec.adapter = RVGradeBAdapter(list)
+                    var list:ArrayList<GradeBook> = response.body()!!.gbook
+                    if(list!=null)
+                        rec.adapter = RVGradeBAdapter(list)
                 }
 
                 override fun onFailure(call: Call<GradeBooks>, t: Throwable?) {

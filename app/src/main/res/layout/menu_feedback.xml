@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/purple_700"
+    tools:context=".ui.menu.Feedback"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/light"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:title="Обратная связь" />
+
+    <LinearLayout
+        android:id="@+id/linscroll"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:orientation="vertical"
+        android:padding="7dp"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/light"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:text="Форма отправки"
+            android:gravity="center"
+            android:layout_marginBottom="5dp"/>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginVertical="5dp"
+            android:padding="10dp"
+            app:hintTextColor="@color/orange_700"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Представьтесь, пожалуйста"
+                android:textColor="@color/white"
+                android:id="@+id/usname"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginVertical="5dp"
+            android:padding="10dp"
+            app:hintTextColor="@color/orange_700">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Укажите номер телефона для звонка"
+                android:textColor="@color/white"
+                android:id="@+id/usphone"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="5dp"
+            android:padding="10dp"
+            app:hintTextColor="@color/orange_700">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Ваш вопрос"
+                android:textColor="@color/white"
+                android:id="@+id/usquestion"
+                android:scrollbars="vertical"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginVertical="5dp"
+            android:padding="10dp"
+            app:hintTextColor="@color/orange_700">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Удобное время для звонка"
+                android:textColor="@color/white"
+                android:id="@+id/ustime"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+    </ScrollView>
+    </LinearLayout>
+
+    <android.widget.Button
+        android:id="@+id/ussend"
+        android:layout_width="190dp"
+        android:layout_height="55dp"
+        android:background="@drawable/grad"
+        android:fontFamily="sans-serif-medium"
+        android:shadowColor="#686767"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="1"
+        android:text="Отправить"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:layout_gravity="center"
+        android:layout_marginVertical="20dp"/>
+
+</LinearLayout>

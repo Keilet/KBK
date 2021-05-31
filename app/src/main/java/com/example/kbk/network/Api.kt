@@ -36,6 +36,9 @@ interface Api {
         @Query("idu") idu: Int
     ):Call<Dashboards>
 
+    @GET("dashboardall.php")
+    fun dashboardallFun ():Call<Dashboards>
+
     @GET("gradebook.php")
     fun gradebookFun (
         @Query("ids") ids: Int,

@@ -9,19 +9,6 @@
     android:orientation="vertical"
     android:background="@color/purple_700"
     >
-    <android.widget.Button
-        android:id="@+id/search"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAllCaps="false"
-        android:text="Поиск"
-        android:background="@color/purple_700"
-        style="?android:attr/borderlessButtonStyle"
-        android:gravity="right|fill_vertical"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-        android:paddingRight="10dp"
-        android:textColor="@color/orange_700"
-        />
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewpager_dashboard"
         android:layout_width="match_parent"

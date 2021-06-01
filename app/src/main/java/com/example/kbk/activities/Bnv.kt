@@ -3,6 +3,7 @@ package com.example.kbk.activities
 
 import android.graphics.drawable.PaintDrawable
 import android.os.Bundle
+import android.view.MenuItem
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -12,6 +13,8 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.kbk.R
 
 class Bnv : AppCompatActivity() {
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,4 +33,5 @@ class Bnv : AppCompatActivity() {
         getSupportActionBar()?.setBackgroundDrawable(PaintDrawable(R.drawable.light))
 
     }
+
 }

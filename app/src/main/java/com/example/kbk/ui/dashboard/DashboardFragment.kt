@@ -2,9 +2,7 @@ package com.example.kbk.ui.dashboard
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -28,7 +26,7 @@ class DashboardFragment : Fragment() {
                 ViewModelProvider(this).get(DashboardViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
         root.viewpager_dashboard.adapter= VPDashbAdapter(requireActivity())
-
+        setHasOptionsMenu(true)
         var dashbdates: ArrayList<String> = arrayListOf()
         var i:Int=0
         val d:Date= Date()
@@ -71,16 +69,35 @@ class DashboardFragment : Fragment() {
         Log.d("index",index.toString())
         root.viewpager_dashboard.setCurrentItem(index)
 
-        searchd=root.findViewById(R.id.search)
-        searchd.setOnClickListener{
-            val searchDialogFragment = SearchDialogFragment()
-            val manager = requireFragmentManager()
-            searchDialogFragment.show(manager, "searchDialog")
-        }
+//        searchd=root.findViewById(R.id.search)
+//        searchd.setOnClickListener{
+//            val searchDialogFragment = SearchDialogFragment()
+//            val manager = requireFragmentManager()
+//            searchDialogFragment.show(manager, "searchDialog")
+//        }
 
 
 
         return root
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+
+        inflater.inflate(R.menu.search_menu,menu)
+        super.onCreateOptionsMenu(menu, inflater)
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem)=when (item.itemId) {
+        R.id.action_searchdashb -> {
+            //Toast.makeText(this, "Hello Katy", Toast.LENGTH_LONG).show()
+            val searchDialogFragment = SearchDialogFragment()
+            val manager = requireFragmentManager()
+            searchDialogFragment.show(manager, "searchDialog")
+            true
+        }
+        else -> {
+            super.onOptionsItemSelected(item)
+        }
+    }
 }

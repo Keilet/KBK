@@ -12,7 +12,7 @@ import com.example.kbk.ui.dashboard.dialogs.SearchDialogFragment
 import kotlinx.android.synthetic.main.fragment_dashboard.view.*
 import java.util.*
 
-class DashboardFragment : Fragment() {
+class DashboardFragment : Fragment(),Search {
 
     private lateinit var dashboardViewModel: DashboardViewModel
     private lateinit var searchd: Button
@@ -68,16 +68,6 @@ class DashboardFragment : Fragment() {
         }
         Log.d("index",index.toString())
         root.viewpager_dashboard.setCurrentItem(index)
-
-//        searchd=root.findViewById(R.id.search)
-//        searchd.setOnClickListener{
-//            val searchDialogFragment = SearchDialogFragment()
-//            val manager = requireFragmentManager()
-//            searchDialogFragment.show(manager, "searchDialog")
-//        }
-
-
-
         return root
     }
 
@@ -99,5 +89,9 @@ class DashboardFragment : Fragment() {
         else -> {
             super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun showList() {
+
     }
 }

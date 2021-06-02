@@ -1,16 +1,23 @@
 package com.example.kbk.ui.dashboard.dialogs
 
 import android.app.AlertDialog
+import android.app.Application
 import android.app.Dialog
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
+import android.widget.LinearLayout
 import android.widget.RadioButton
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.kbk.R
+import com.example.kbk.model.AllGroup
+import com.example.kbk.model.AllGroups
 import com.example.kbk.model.Teacher
 import com.example.kbk.model.Teachers
 import com.example.kbk.network.Api
@@ -21,29 +28,16 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.security.Provider
 
 
 class SearchDialogFragment: DialogFragment() {
 
     private lateinit var radio_t:RadioButton
+    private lateinit var radio_g:RadioButton
+
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-/*        return activity?.let {
-            val searchDialogFragment = SearchDialogFragment()
-            val manager = requireFragmentManager()
-            val builder = AlertDialog.Builder(it)
-            builder.setTitle("Поиск по")
-                .setCancelable(true)
-                .setPositiveButton("Группе") { dialog, id ->
-                  //  GroupSDialog.show(manager, "groupSDialog")
-                }
-                .setNegativeButton("Преподавателю",
-                    DialogInterface.OnClickListener { dialog, id ->
-                //        TeacherSDialog.show(manager, "teacherSDialog")
-                    })
-            builder.create()
-        } ?: throw IllegalStateException("Activity cannot be null")*/
-
         val builder = AlertDialog.Builder(
             activity
         )
@@ -56,42 +50,60 @@ class SearchDialogFragment: DialogFragment() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val service: Api = retrofit.create(Api::class.java)
+        val rec: RecyclerView = view.findViewById(R.id.searchd_recycler_view)
+        rec.setHasFixedSize(true)
+        rec.setLayoutManager(LinearLayoutManager(requireActivity()))
 
-        radio_t=requireActivity().findViewById(R.id.radio_sgroups)
-        //if (radio_steachers)
-        val call: Call<Teachers> = service.allteachers()
 
-        call.enqueue(object : Callback<Teachers> {
-            override fun onResponse(call: Call<Teachers>, response: Response<Teachers>)
-            {
-                var list:ArrayList<Teacher> = response.body()!!.teachers
-                //rec.adapter = TeachersAdapter(list)
-
+        val stateClickListener: GroupSDialogAdapter.OnStateClickListener = object : GroupSDialogAdapter.OnStateClickListener {
+            override fun onStateClick(gr: AllGroup, position: Int) {
+                Toast.makeText(
+                    context!!.getApplicationContext(),
+                    "Был выбран пункт " + gr.id_group,
+                    Toast.LENGTH_SHORT
+                ).show()
             }
-
-            override fun onFailure(call: Call<Teachers>, t: Throwable?) {
-                Log.d("adapter",t.toString())
-            }
-        })
-
-/*        builder.setView(view)
-        builder.setTitle("Поиск по")
-        val tspinner:Spinner=view.findViewById(com.example.kbk.R.id.spinnerTeacher)
-        val gspinner:Spinner=view.findViewById(com.example.kbk.R.id.spinnerGroup)
-        val tadapter:ArrayAdapter<String>()
-        ArrayAdapter.createFromResource(
-            this,
-            R.array.planets_array,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            // Specify the layout to use when the list of choices appears
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            // Apply the adapter to the spinner
-            tspinner.adapter = adapter
-        }*/
+        }
 
 
-        // Остальной код
+        radio_t=view.findViewById(R.id.radio_steachers)
+        radio_g=view.findViewById(R.id.radio_sgroups)
+        radio_t.setOnClickListener{
+            val call: Call<Teachers> = service.allteachers()
+
+            call.enqueue(object : Callback<Teachers> {
+                override fun onResponse(call: Call<Teachers>, response: Response<Teachers>) {
+                    var list: ArrayList<Teacher> = response.body()!!.teachers
+                    rec.adapter = TeacherSDialogAdapter(list)
+                }
+
+                override fun onFailure(call: Call<Teachers>, t: Throwable?) {
+                    Log.d("adapter", t.toString())
+                }
+            })
+        }
+        radio_g.setOnClickListener{
+            val call: Call<AllGroups> = service.allgroups()
+
+            call.enqueue(object : Callback<AllGroups> {
+                override fun onResponse(call: Call<AllGroups>, response: Response<AllGroups>) {
+                    var list: ArrayList<AllGroup> = response.body()!!.groups
+                    rec.adapter = GroupSDialogAdapter(list)
+                }
+
+                override fun onFailure(call: Call<AllGroups>, t: Throwable?) {
+                    Log.d("adapter", t.toString())
+                }
+            })
+        }
+
         return builder.create()
+    }
+    override fun onResume() {
+        super.onResume()
+        val params: ViewGroup.LayoutParams = dialog!!.window!!.attributes
+        params.width = LinearLayout.LayoutParams.MATCH_PARENT
+        params.height =  LinearLayout.LayoutParams.MATCH_PARENT
+        dialog!!.window!!.attributes = params as WindowManager.LayoutParams
     }
 }

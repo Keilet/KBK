@@ -4,10 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:minWidth="1000dp"
+    android:minHeight="1000dp"
     tools:context=".ui.dashboard.dialogs.SearchDialogFragment"
     android:orientation="vertical"
     android:padding="20dp"
-    android:background="@drawable/light">
+    android:background="@color/purple_500"
+    >
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,6 +30,7 @@
             android:layout_height="wrap_content"
             android:text="Группе"
             android:textSize="18sp"
+
             />
         <RadioButton
             android:id="@+id/radio_steachers"

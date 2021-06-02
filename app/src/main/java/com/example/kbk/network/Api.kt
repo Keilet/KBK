@@ -47,4 +47,7 @@ interface Api {
 
     @GET("allTeachers.php")
     fun allteachers():Call<Teachers>
+
+    @GET("allGroups.php")
+    fun allgroups():Call<AllGroups>
 }

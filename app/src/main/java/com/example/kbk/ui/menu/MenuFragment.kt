@@ -41,6 +41,8 @@ class MenuFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_menu, container, false)
         val settings: SharedPreferences =
             requireActivity()!!.getSharedPreferences("Account", Context.MODE_PRIVATE)
+        val idu: Int = settings.getInt("idu", 0)
+        val ids: Int = settings.getInt("ids", 0)
 //            contextThis= requireActivity()
             ex=root.findViewById(R.id.exit)
             ex.setOnClickListener{
@@ -52,6 +54,9 @@ class MenuFragment : Fragment() {
                 requireActivity().finish()
             }
         gradeb=root.findViewById(R.id.gradebook)
+        if(ids==0){
+            gradeb.setVisibility(View.GONE)
+        }
         gradeb.setOnClickListener{
             startActivity(Intent(context, GradeBActivity::class.java))
         }
@@ -63,7 +68,11 @@ class MenuFragment : Fragment() {
         feedb.setOnClickListener{
             startActivity(Intent(context, Feedback::class.java))
         }
+
         docs=root.findViewById(R.id.documents)
+        if(ids!=0 || idu!=0){
+            docs.setVisibility(View.GONE)
+        }
         docs.setOnClickListener{
             startActivity(Intent(context, Documents::class.java))
         }
@@ -71,19 +80,19 @@ class MenuFragment : Fragment() {
         val name: String = settings.getString("firstname", "")+" "+settings.getString("lastname", "")
         uname.text = name
         ugroup=root.findViewById(R.id.textViewGroup)
-        val idu: Int = settings.getInt("idu", 0)
-        val ids: Int = settings.getInt("ids", 0)
-        if (idu != 0) {
-            ugroup.text = "Преподаватель"
-            uname.text = name}
-        if (ids != 0){
-            var year_group:Int=settings.getInt("year_group", 0)
-            year_group=year_group%100
-            stgroup=year_group.toString()+"-"+settings.getString("shortname", "")+"-"+settings.getInt("num_course", 0)
-            ugroup.text =stgroup
-            uname.text = name
+        when {
+            idu != 0 -> {
+                ugroup.text = "Преподаватель"
+                uname.text = name}
+            ids != 0 -> {
+                var year_group:Int=settings.getInt("year_group", 0)
+                year_group=year_group%100
+                stgroup=year_group.toString()+"-"+settings.getString("shortname", "")+"-"+settings.getInt("num_course", 0)
+                ugroup.text =stgroup
+                uname.text = name
+            }
+            else -> ugroup.text ="Войдите в аккаунт"
         }
-        else ugroup.text ="Войдите в аккаунт"
         return root
     }
 }

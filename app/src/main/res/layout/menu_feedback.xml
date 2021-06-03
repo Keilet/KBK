@@ -39,7 +39,7 @@
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
             android:text="Форма отправки"
             android:gravity="center"
-            android:layout_marginBottom="5dp"/>
+            android:layout_marginTop="5dp"/>
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -76,6 +76,7 @@
                 android:hint="Укажите номер телефона для звонка"
                 android:textColor="@color/white"
                 android:id="@+id/usphone"
+                android:inputType="phone"
                 />
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout

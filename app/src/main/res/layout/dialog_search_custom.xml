@@ -23,14 +23,15 @@
         android:id="@+id/radioGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginVertical="10dp">
         <RadioButton
             android:id="@+id/radio_sgroups"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Группе"
             android:textSize="18sp"
-
+            android:layout_marginBottom="10dp"
             />
         <RadioButton
             android:id="@+id/radio_steachers"

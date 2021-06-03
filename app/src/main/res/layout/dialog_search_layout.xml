@@ -3,15 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@drawable/light">
+    android:background="@drawable/dark"
+    android:layout_marginBottom="5dp">
     <TextView
         android:id="@+id/textViewSearchD"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         android:gravity="center"
-        android:textColor="@color/white"
+        android:textColor="@color/whitesoft"
         android:padding="5dp"
-        android:background="@drawable/border"
+
         />
 </LinearLayout>

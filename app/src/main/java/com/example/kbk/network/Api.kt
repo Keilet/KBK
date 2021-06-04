@@ -50,4 +50,13 @@ interface Api {
 
     @GET("allGroups.php")
     fun allgroups():Call<AllGroups>
+
+    @FormUrlEncoded
+    @POST("sendquestion.php")
+    fun sendQuestion (
+        @Field("enrollee_name") enrollee_name: String,
+        @Field("enrollee_phone") enrollee_phone: String,
+        @Field("question") question: String,
+        @Field("enrollee_time") enrollee_time: String
+    ):Call<SendQuestion>
 }

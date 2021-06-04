@@ -45,7 +45,14 @@ class MenuFragment : Fragment() {
         val ids: Int = settings.getInt("ids", 0)
 //            contextThis= requireActivity()
             ex=root.findViewById(R.id.exit)
+        if(ids==0 && idu==0){
+            ex.text="Войти в аккаунт"
             ex.setOnClickListener{
+                startActivity(Intent(context, MainActivity::class.java))
+            }
+        }
+        else {
+            ex.setOnClickListener {
                 val settings: SharedPreferences =
                     requireActivity()!!.getSharedPreferences("Account", Context.MODE_PRIVATE)
                 val editor = settings.edit()
@@ -53,6 +60,8 @@ class MenuFragment : Fragment() {
                 editor.apply()
                 requireActivity().finish()
             }
+        }
+
         gradeb=root.findViewById(R.id.gradebook)
         if(ids==0){
             gradeb.setVisibility(View.GONE)

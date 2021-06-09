@@ -95,21 +95,43 @@
                 android:scrollbars="vertical"
                 />
         </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_marginVertical="5dp"
-            android:padding="10dp"
-            app:hintTextColor="@color/orange_700">
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="80dp"-->
+<!--            android:layout_marginVertical="5dp"-->
+<!--            android:padding="10dp"-->
+<!--            app:hintTextColor="@color/orange_700">-->
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="Удобное время для звонка"
-                android:textColor="@color/white"
-                android:id="@+id/ustime"
-                />
-        </com.google.android.material.textfield.TextInputLayout>
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:hint="Удобное время для звонка"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:id="@+id/ustime"-->
+<!--                />-->
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
+
+                <android.widget.Button
+                    android:id="@+id/time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="5dp"
+                    android:padding="15dp"
+                    android:textAllCaps="false"
+                    android:text="Удобное время для звонка"
+                    android:background="@color/purple_500"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:gravity="fill_vertical"
+                    android:textSize="18sp"
+                    android:textColor="@color/orange_700"/>
+                <TextView
+                    android:id="@+id/timeTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:padding="15dp"/>
+
     </LinearLayout>
     </ScrollView>
     </LinearLayout>

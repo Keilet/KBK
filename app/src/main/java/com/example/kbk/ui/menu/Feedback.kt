@@ -1,11 +1,13 @@
 package com.example.kbk.ui.menu
 
+import android.app.TimePickerDialog
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.TimePicker
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -23,6 +25,9 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.text.SimpleDateFormat
+import java.util.*
+
 
 class Feedback : AppCompatActivity(), View.OnClickListener {
 
@@ -30,6 +35,8 @@ class Feedback : AppCompatActivity(), View.OnClickListener {
     lateinit var usphone: TextInputEditText
     lateinit var usquestion: TextInputEditText
     lateinit var ustime: TextInputEditText
+    lateinit var timetextView: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.menu_feedback)
@@ -41,21 +48,24 @@ class Feedback : AppCompatActivity(), View.OnClickListener {
         toolbar.setNavigationOnClickListener {
             onBackPressed() // возврат на предыдущий activity
         }
-
+        //ustime = findViewById(R.id.ustime)
         ussend.setOnClickListener(this)
 
+        time.setOnClickListener {
+            openTimePiker()
+        }
     }
 
     fun sendForm() {
         usname = findViewById(R.id.usname)
         usphone = findViewById(R.id.usphone)
         usquestion = findViewById(R.id.usquestion)
-        ustime = findViewById(R.id.ustime)
+        timetextView = findViewById(R.id.timeTv)
         val uname: String = usname.text.toString().trim()
         val uphone: String = usphone.text.toString().trim()
         val uquestion: String = usquestion.text.toString().trim()
-        val utime: String = ustime.text.toString().trim()
-
+        val utime: String = timetextView.text.toString().trim()
+//        ustime = findViewById(R.id.ustime)
         val retrofit = Retrofit.Builder()
             .baseUrl(ServiceBuilder.URL)
             .addConverterFactory(GsonConverterFactory.create())
@@ -80,8 +90,10 @@ class Feedback : AppCompatActivity(), View.OnClickListener {
         }
 
         if (utime.isEmpty()) {
-            ustime.setError("Введите номер телефона")
-            ustime.requestFocus()
+
+            Toast.makeText(applicationContext, "Укажите время для звонка", Toast.LENGTH_LONG).show()
+//            timetextView.setError("Выберите время")
+//            timetextView.requestFocus()
             return
         }
 
@@ -102,4 +114,17 @@ class Feedback : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         sendForm()
     }
+
+    fun openTimePiker(){
+        timetextView = findViewById(R.id.timeTv)
+        val cal = Calendar.getInstance()
+        val timeSetListener=TimePickerDialog.OnTimeSetListener{view: TimePicker?, hourOfDay: Int, minute: Int ->  cal.set(Calendar.HOUR_OF_DAY,hourOfDay)
+            cal.set(Calendar.MINUTE, minute)
+            timetextView.text=SimpleDateFormat("HH:mm").format(cal.time)}
+
+
+        TimePickerDialog(this,timeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true).show()
+    }
+
+
 }

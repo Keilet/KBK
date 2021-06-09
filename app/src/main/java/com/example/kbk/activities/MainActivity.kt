@@ -1,6 +1,8 @@
 package com.example.kbk.activities
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.kbk.R
@@ -25,6 +27,14 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, Bnv::class.java)
             startActivity(intent)
         }
+    }
+    override fun onStart() {
+        super.onStart()
+        val settings: SharedPreferences =
+            this!!.getSharedPreferences("Account", Context.MODE_PRIVATE)
+        var id_searchgroup: SharedPreferences.Editor=settings.edit()
+        id_searchgroup.putInt("id_searchgroup",0)
+        id_searchgroup.apply()
     }
 
 

@@ -80,7 +80,6 @@ class DashboardFragment : Fragment(),Search {
 
     override fun onOptionsItemSelected(item: MenuItem)=when (item.itemId) {
         R.id.action_searchdashb -> {
-            //Toast.makeText(this, "Hello Katy", Toast.LENGTH_LONG).show()
             val searchDialogFragment = SearchDialogFragment()
             val manager = requireFragmentManager()
             searchDialogFragment.show(manager, "searchDialog")

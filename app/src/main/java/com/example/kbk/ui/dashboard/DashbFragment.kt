@@ -74,7 +74,8 @@ class DashbFragment : Fragment() {
             val service: Api = retrofit.create(Api::class.java)
             val id: Int = settings.getInt("id_group", 0)
             val idu: Int = settings.getInt("idu", 0)
-            if (id != 0) {
+            val idsgroup: Int = settings.getInt("id_searchgroup", 0)
+            if (id != 0 && idsgroup==0) {
                 val db = activity?.let { it1 ->
                     Room.databaseBuilder(
                         it1.applicationContext,
@@ -142,7 +143,7 @@ class DashbFragment : Fragment() {
                     }
                 })
             }
-            if (idu != 0) {
+            if (idu != 0 && idsgroup==0) {
                 val db = activity?.let { it1 ->
                     Room.databaseBuilder(
                         it1.applicationContext,
@@ -209,6 +210,43 @@ class DashbFragment : Fragment() {
                         Log.d("adapter", t.toString())
                     }
                 })
+            }
+
+
+
+
+
+            if (idsgroup != 0) {
+                rec.adapter!!.notifyDataSetChanged()
+
+                val call: Call<Dashboards> =
+                    service.dashboardFun(
+                        datedash.text.toString(),
+                        settings.getInt("id_searchgroup", 0)
+                    )
+
+                call.enqueue(object : Callback<Dashboards> {
+                    override fun onResponse(
+                        call: Call<Dashboards>,
+                        response: Response<Dashboards>
+                    ) {
+                        var list: ArrayList<Dashboard> = response.body()!!.dashb
+                        if (list != null) {
+                            rec.adapter = DashbAdapter(list,contextThis)
+                        }
+                    }
+
+                    override fun onFailure(call: Call<Dashboards>, t: Throwable?) {
+                        Log.d("adapter", t.toString())
+                    }
+                })
+/*                fun onDestroy() {
+                    super.onDestroy()
+                    var id_searchgroup: SharedPreferences.Editor=settings.edit()
+                    id_searchgroup.putInt("id_searchgroup",0)
+                    id_searchgroup.apply()
+                    requireActivity().finish()
+                }*/
             }
         }
     }

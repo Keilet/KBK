@@ -3,6 +3,8 @@ package com.example.kbk.ui.dashboard.dialogs
 import android.app.AlertDialog
 import android.app.Application
 import android.app.Dialog
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,6 +14,7 @@ import android.view.WindowManager
 import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -37,7 +40,10 @@ class SearchDialogFragment: DialogFragment() {
     private lateinit var radio_g:RadioButton
 
 
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val settings: SharedPreferences =
+            requireActivity().getSharedPreferences("Account", Context.MODE_PRIVATE)
         val builder = AlertDialog.Builder(
             activity
         )
@@ -55,14 +61,22 @@ class SearchDialogFragment: DialogFragment() {
         rec.setLayoutManager(LinearLayoutManager(requireActivity()))
 
 
-        val stateClickListener: GroupSDialogAdapter.OnStateClickListener = object : GroupSDialogAdapter.OnStateClickListener {
-            override fun onStateClick(gr: AllGroup, position: Int) {
+        val stateClickListener: GroupSDialogAdapter.OnClickListener = object : GroupSDialogAdapter.OnClickListener {
+
+
+            override fun onClick(allgr: AllGroup, position: Int) {
+                var id_searchgroup: SharedPreferences.Editor=settings.edit()
+                id_searchgroup.putInt("id_searchgroup",allgr.id_group)
+                id_searchgroup.apply()
                 Toast.makeText(
                     context!!.getApplicationContext(),
-                    "Был выбран пункт " + gr.id_group,
+                    "Был выбран пункт " + settings.getInt("id_searchgroup", 0),
                     Toast.LENGTH_SHORT
                 ).show()
+
+                dismiss()
             }
+
         }
 
 
@@ -88,7 +102,7 @@ class SearchDialogFragment: DialogFragment() {
             call.enqueue(object : Callback<AllGroups> {
                 override fun onResponse(call: Call<AllGroups>, response: Response<AllGroups>) {
                     var list: ArrayList<AllGroup> = response.body()!!.groups
-                    rec.adapter = GroupSDialogAdapter(list)
+                    rec.adapter = GroupSDialogAdapter(list,requireContext(),stateClickListener)
                 }
 
                 override fun onFailure(call: Call<AllGroups>, t: Throwable?) {

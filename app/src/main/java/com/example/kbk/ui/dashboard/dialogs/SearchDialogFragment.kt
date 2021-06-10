@@ -79,6 +79,24 @@ class SearchDialogFragment: DialogFragment() {
 
         }
 
+        val teacherstateClickListener: TeacherSDialogAdapter.OnClickListener = object : TeacherSDialogAdapter.OnClickListener {
+
+
+            override fun onClick(allth: Teacher, position: Int) {
+                var id_searchteacher: SharedPreferences.Editor=settings.edit()
+                id_searchteacher.putInt("id_searchteacher",allth.idu)
+                id_searchteacher.apply()
+                Toast.makeText(
+                    context!!.getApplicationContext(),
+                    "Был выбран пункт " + settings.getInt("id_searchteacher", 0),
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                dismiss()
+            }
+
+        }
+
 
         radio_t=view.findViewById(R.id.radio_steachers)
         radio_g=view.findViewById(R.id.radio_sgroups)
@@ -88,7 +106,7 @@ class SearchDialogFragment: DialogFragment() {
             call.enqueue(object : Callback<Teachers> {
                 override fun onResponse(call: Call<Teachers>, response: Response<Teachers>) {
                     var list: ArrayList<Teacher> = response.body()!!.teachers
-                    rec.adapter = TeacherSDialogAdapter(list)
+                    rec.adapter = TeacherSDialogAdapter(list,requireContext(),teacherstateClickListener)
                 }
 
                 override fun onFailure(call: Call<Teachers>, t: Throwable?) {

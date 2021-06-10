@@ -53,6 +53,42 @@
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/call_layout"
+        android:background="@drawable/light"
+        android:layout_marginBottom="10dp"
+        android:layout_marginHorizontal="8dp"
+        android:paddingVertical="5dp"
+        android:visibility="gone"
+        >
+
+        <ImageView
+            android:id="@+id/ic_call"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="15dp"
+            android:paddingVertical="10dp"
+            android:src="@mipmap/ic_call"
+
+            />
+        <Button
+            android:id="@+id/call"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:text="Звонок в учебный отдел"
+            style="?android:attr/borderlessButtonStyle"
+            android:gravity="fill_vertical"
+            android:textSize="18sp"
+            android:textColor="@color/orange_700"
+            android:icon="@android:drawable/ic_menu_search"
+            android:background="@color/purple_500"
+            android:layout_marginRight="5dp"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="20dp"
@@ -130,6 +166,7 @@
             android:textSize="18sp"
             android:textColor="@color/white"
             />
+
         <Button
             android:id="@+id/exit"
             android:layout_width="match_parent"
@@ -145,5 +182,6 @@
             android:textColor="@color/orange_700"
 
             />
+
     </LinearLayout>
 </LinearLayout>

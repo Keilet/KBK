@@ -3,17 +3,17 @@ package com.example.kbk.ui.menu
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.kbk.R
-import com.example.kbk.activities.Bnv
 import com.example.kbk.activities.MainActivity
 import com.example.kbk.ui.menu.gradebook.GradeBActivity
 import com.example.kbk.ui.menu.teachers.AllTeachers
@@ -28,6 +28,8 @@ class MenuFragment : Fragment() {
     private lateinit var allteach:Button
     private lateinit var feedb:Button
     private lateinit var docs:Button
+    private lateinit var call_layout:LinearLayout
+    private lateinit var call:Button
     private lateinit var uname:TextView
     private lateinit var ugroup:TextView
     private lateinit var stgroup: String
@@ -74,6 +76,9 @@ class MenuFragment : Fragment() {
             startActivity(Intent(context, AllTeachers::class.java))
         }
         feedb=root.findViewById(R.id.feedback)
+        if(ids!=0 || idu!=0){
+            feedb.setVisibility(View.GONE)
+        }
         feedb.setOnClickListener{
             startActivity(Intent(context, Feedback::class.java))
         }
@@ -84,6 +89,15 @@ class MenuFragment : Fragment() {
         }
         docs.setOnClickListener{
             startActivity(Intent(context, Documents::class.java))
+        }
+        call_layout=root.findViewById(R.id.call_layout)
+        if(idu!=0){
+            call_layout.setVisibility(View.VISIBLE)
+        }
+        call=root.findViewById(R.id.call)
+        call.setOnClickListener{
+            val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "935131"))
+            startActivity(intent)
         }
         uname=root.findViewById(R.id.textViewName)
         val name: String = settings.getString("firstname", "")+" "+settings.getString("lastname", "")

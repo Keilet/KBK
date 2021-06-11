@@ -61,7 +61,7 @@ class DashbFragment : Fragment() {
             var dashbdates: java.util.ArrayList<String> = arrayListOf()
             val d: Date = Date()
             val t: StudyYear = StudyYear(d)
-            contextThis= requireActivity()
+            contextThis = requireActivity()
             dashbdates = t.getStringCalendar()
             val str: String = dashbdates.get(it.getInt("position"))
             datedash.text = str
@@ -78,7 +78,7 @@ class DashbFragment : Fragment() {
             val idsteacher: Int = settings.getInt("id_searchteacher", 0)
 
 
-            if (id != 0 && idsgroup==0) {
+            if (id != 0 && idsgroup == 0 && idsteacher == 0) {
                 val db = activity?.let { it1 ->
                     Room.databaseBuilder(
                         it1.applicationContext,
@@ -111,11 +111,9 @@ class DashbFragment : Fragment() {
                             for (i in curDash) {
                                 if (i.date_dashb < s) inner.add(i)
                             }
-                            rec.adapter = DashbAdapter(inner,contextThis)
+                            rec.adapter = DashbAdapter(inner, contextThis)
                         }
                     )
-
-
                 val call: Call<Dashboards> =
                     service.dashboardFun(
                         datedash.text.toString(),
@@ -130,7 +128,7 @@ class DashbFragment : Fragment() {
                         var list: ArrayList<Dashboard> = response.body()!!.dashb
 
                         if (list != null) {
-                            rec.adapter = DashbAdapter(list,contextThis)
+                            rec.adapter = DashbAdapter(list, contextThis)
                             for (i in list) {
                                 if (i.date_dashb.equals(s)) {
                                     runBlocking {
@@ -140,13 +138,11 @@ class DashbFragment : Fragment() {
                             }
                         }
                     }
-
                     override fun onFailure(call: Call<Dashboards>, t: Throwable?) {
                         Log.d("adapter", t.toString())
                     }
                 })
-            }
-            if (idu != 0 && idsgroup==0) {
+            } else if (idu != 0 && idsgroup == 0 && idsteacher == 0) {
                 val db = activity?.let { it1 ->
                     Room.databaseBuilder(
                         it1.applicationContext,
@@ -156,7 +152,8 @@ class DashbFragment : Fragment() {
                 var curDash: List<Dashboard> = arrayListOf()
 
                 Observable.fromCallable({
-                    curDash = db?.getDashboardDao()?.getDashboards2(idu, datedash.text.toString())!!;
+                    curDash =
+                        db?.getDashboardDao()?.getDashboards2(idu, datedash.text.toString())!!;
                 }).subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
@@ -179,7 +176,7 @@ class DashbFragment : Fragment() {
                             for (i in curDash) {
                                 if (i.date_dashb < s) inner.add(i)
                             }
-                            rec.adapter = DashbAdapter(inner,contextThis)
+                            rec.adapter = DashbAdapter(inner, contextThis)
                         }
                     )
 
@@ -198,7 +195,7 @@ class DashbFragment : Fragment() {
                         var list: ArrayList<Dashboard> = response.body()!!.dashb
 
                         if (list != null) {
-                            rec.adapter = DashbAdapter(list,contextThis)
+                            rec.adapter = DashbAdapter(list, contextThis)
                             for (i in list) {
                                 if (i.date_dashb.equals(s)) {
                                     runBlocking {
@@ -213,18 +210,11 @@ class DashbFragment : Fragment() {
                         Log.d("adapter", t.toString())
                     }
                 })
-            }
-
-
-
-
-
-            if (idsgroup != 0) {
-                var id_searchteacher: SharedPreferences.Editor=settings.edit()
-                id_searchteacher.putInt("id_searchteacher",0)
+            } else if (idsgroup != 0) {
+                var id_searchteacher: SharedPreferences.Editor = settings.edit()
+                id_searchteacher.putInt("id_searchteacher", 0)
                 id_searchteacher.apply()
-                //list.clear()
-                rec.adapter!!.notifyDataSetChanged()
+
 
                 val call: Call<Dashboards> =
                     service.dashboardFun(
@@ -239,7 +229,7 @@ class DashbFragment : Fragment() {
                     ) {
                         var list: ArrayList<Dashboard> = response.body()!!.dashb
                         if (list != null) {
-                            rec.adapter = DashbAdapter(list,contextThis)
+                            rec.adapter = DashbAdapter(list, contextThis)
                         }
                     }
 
@@ -247,15 +237,11 @@ class DashbFragment : Fragment() {
                         Log.d("adapter", t.toString())
                     }
                 })
-            }
-
-
-            if (idsteacher != 0) {
-                var id_searchgroup: SharedPreferences.Editor=settings.edit()
-                id_searchgroup.putInt("id_searchgroup",0)
+            } else if (idsteacher != 0) {
+                var id_searchgroup: SharedPreferences.Editor = settings.edit()
+                id_searchgroup.putInt("id_searchgroup", 0)
                 id_searchgroup.apply()
-                //list.clear()
-                rec.adapter!!.notifyDataSetChanged()
+
 
                 val call: Call<Dashboards> =
                     service.dashboard2Fun(
@@ -270,7 +256,29 @@ class DashbFragment : Fragment() {
                     ) {
                         var list: ArrayList<Dashboard> = response.body()!!.dashb
                         if (list != null) {
-                            rec.adapter = DashbAdapter(list,contextThis)
+                            rec.adapter = DashbAdapter(list, contextThis)
+                        }
+                    }
+
+                    override fun onFailure(call: Call<Dashboards>, t: Throwable?) {
+                        Log.d("adapter", t.toString())
+                    }
+                })
+            } else {
+                val call: Call<Dashboards> =
+                    service.dashboardFun(
+                        datedash.text.toString(),
+                        1
+                    )
+
+                call.enqueue(object : Callback<Dashboards> {
+                    override fun onResponse(
+                        call: Call<Dashboards>,
+                        response: Response<Dashboards>
+                    ) {
+                        var list: ArrayList<Dashboard> = response.body()!!.dashb
+                        if (list != null) {
+                            rec.adapter = DashbAdapter(list, contextThis)
                         }
                     }
 

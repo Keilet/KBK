@@ -60,7 +60,8 @@ data class DashbAdapter(val dashbList: List<Dashboard>,val context: Context) :
             textViewSubject.text = dashb.subject
             textViewNumberCabinet.text = dashb.number_cabinet.toString()
             val idu: Int = settings.getInt("idu", 0)
-            if (idu != 0) {textViewTeacher.text = dashb.full_group}
+            val idsu: Int = settings.getInt("id_searchteacher", 0)
+            if (idu != 0 || idsu!=0) {textViewTeacher.text = dashb.full_group}
             else{textViewTeacher.text = dashb.teacher_name}
 //            textViewTeacher.text = dashb.full_group
 //            textViewTeacher.text = dashb.teacher_name

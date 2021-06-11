@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.work.*
 import com.example.kbk.R
 
 class NotificationsFragment : Fragment() {
@@ -26,6 +27,9 @@ class NotificationsFragment : Fragment() {
         notificationsViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
+        val constraints=Constraints.Builder().setRequiredNetworkType(NetworkType.UNMETERED).build()
+        val workRequest=OneTimeWorkRequest.Builder(NotufyWorker::class.java).setConstraints(constraints).build()
+        WorkManager.getInstance().enqueue(workRequest)
         return root
     }
 }

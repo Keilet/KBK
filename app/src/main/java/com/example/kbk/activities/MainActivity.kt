@@ -39,8 +39,8 @@ class MainActivity : AppCompatActivity() {
         id_searchteacher.putInt("id_searchteacher",0)
         id_searchteacher.apply()
         val ids: Int = settings.getInt("ids", 0)
-        val idt: Int = settings.getInt("idt", 0)
-        if(ids!=0 || idt!=0) startActivity(Intent(applicationContext, Bnv::class.java))
+        val idu: Int = settings.getInt("idu", 0)
+        if(ids!=0 || idu!=0) startActivity(Intent(applicationContext, Bnv::class.java))
     }
 
 

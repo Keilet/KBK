@@ -1,21 +1,24 @@
 package com.example.kbk.ui.dashboard
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager2.widget.ViewPager2
 import com.example.kbk.R
 import com.example.kbk.StudyYear
 import com.example.kbk.ui.dashboard.dialogs.SearchDialogFragment
 import kotlinx.android.synthetic.main.fragment_dashboard.view.*
 import java.util.*
 
-class DashboardFragment : Fragment(),Search {
+class DashboardFragment : Fragment() {
 
     private lateinit var dashboardViewModel: DashboardViewModel
     private lateinit var searchd: Button
+    private lateinit var viewpager_dashboard:ViewPager2
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -25,7 +28,8 @@ class DashboardFragment : Fragment(),Search {
         dashboardViewModel =
                 ViewModelProvider(this).get(DashboardViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
-        root.viewpager_dashboard.adapter= VPDashbAdapter(requireActivity())
+        viewpager_dashboard=root.viewpager_dashboard
+        viewpager_dashboard.adapter= VPDashbAdapter(requireActivity())
         setHasOptionsMenu(true)
         var dashbdates: ArrayList<String> = arrayListOf()
         var i:Int=0
@@ -90,7 +94,10 @@ class DashboardFragment : Fragment(),Search {
         }
     }
 
-    override fun showList() {
 
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        viewpager_dashboard.adapter?.notifyDataSetChanged()
     }
 }

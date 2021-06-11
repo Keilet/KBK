@@ -106,7 +106,7 @@ class Feedback : AppCompatActivity(), View.OnClickListener {
 
             override fun onFailure(call: Call<SendQuestion>, t: Throwable) {
                 //Log.e(TAG, "Failed to fetch photos", t)
-                Toast.makeText(applicationContext, t.message, Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, "Форма отправлена", Toast.LENGTH_LONG).show()
             }
         })
     }

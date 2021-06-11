@@ -1,9 +1,10 @@
 package com.example.kbk.ui.dashboard.dialogs
 
+import android.app.Activity
 import android.app.AlertDialog
-import android.app.Application
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -14,7 +15,6 @@ import android.view.WindowManager
 import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,21 +25,17 @@ import com.example.kbk.model.Teacher
 import com.example.kbk.model.Teachers
 import com.example.kbk.network.Api
 import com.example.kbk.network.ServiceBuilder
-import kotlinx.android.synthetic.main.dialog_search_custom.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.security.Provider
 
 
 class SearchDialogFragment: DialogFragment() {
 
     private lateinit var radio_t:RadioButton
     private lateinit var radio_g:RadioButton
-
-
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val settings: SharedPreferences =
@@ -60,7 +56,6 @@ class SearchDialogFragment: DialogFragment() {
         rec.setHasFixedSize(true)
         rec.setLayoutManager(LinearLayoutManager(requireActivity()))
 
-
         val stateClickListener: GroupSDialogAdapter.OnClickListener = object : GroupSDialogAdapter.OnClickListener {
 
 
@@ -73,7 +68,8 @@ class SearchDialogFragment: DialogFragment() {
                     "Был выбран пункт " + settings.getInt("id_searchgroup", 0),
                     Toast.LENGTH_SHORT
                 ).show()
-
+                var intent:Intent= Intent()
+                targetFragment?.onActivityResult(targetRequestCode,Activity.RESULT_OK,intent);
                 dismiss()
             }
 
@@ -91,7 +87,8 @@ class SearchDialogFragment: DialogFragment() {
                     "Был выбран пункт " + settings.getInt("id_searchteacher", 0),
                     Toast.LENGTH_SHORT
                 ).show()
-
+                var intent:Intent= Intent()
+                targetFragment?.onActivityResult(targetRequestCode,Activity.RESULT_OK,intent);
                 dismiss()
             }
 

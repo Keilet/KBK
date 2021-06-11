@@ -59,4 +59,18 @@ interface Api {
         @Field("question") question: String,
         @Field("enrollee_time") enrollee_time: String
     ):Call<SendQuestion>
+
+    @GET("allMessages.php")
+    fun allmessages():Call<KBKMessages>
+
+
+    @GET("messageGroup.php")
+    fun messageGroup (
+        @Query("idg") idg: Int
+    ):Call<KBKMessages>
+
+    @GET("messageUser.php")
+    fun messageUser (
+        @Query("id") id: Int
+    ):Call<KBKMessages>
 }

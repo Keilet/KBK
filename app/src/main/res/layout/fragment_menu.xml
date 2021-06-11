@@ -49,7 +49,19 @@
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
                 android:textColor="@color/white"/>
+            <Button
+                android:id="@+id/chngpass"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:textAllCaps="false"
+                android:text="Сменить пароль"
+                android:background="@color/purple_500"
+                style="?android:attr/borderlessButtonStyle"
+                android:gravity="fill_vertical"
+                android:textSize="16sp"
+                android:textColor="@color/orange_700"
 
+                />
         </LinearLayout>
     </LinearLayout>
     <LinearLayout

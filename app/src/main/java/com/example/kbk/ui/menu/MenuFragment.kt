@@ -30,6 +30,7 @@ class MenuFragment : Fragment() {
     private lateinit var docs:Button
     private lateinit var call_layout:LinearLayout
     private lateinit var call:Button
+    private lateinit var pass:Button
     private lateinit var uname:TextView
     private lateinit var ugroup:TextView
     private lateinit var stgroup: String
@@ -62,6 +63,11 @@ class MenuFragment : Fragment() {
                 editor.apply()
                 requireActivity().finish()
             }
+        }
+
+        pass=root.findViewById(R.id.chngpass)
+        if(ids==0 && idu==0){
+            pass.setVisibility(View.GONE)
         }
 
         gradeb=root.findViewById(R.id.gradebook)

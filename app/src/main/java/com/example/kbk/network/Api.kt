@@ -81,4 +81,7 @@ interface Api {
         @Field("id") id: Int,
         @Field("password") password: String
     ):Call<LoginResponse>
+
+    @GET("getImages.php")
+    fun getImages():Call<Photos>
 }

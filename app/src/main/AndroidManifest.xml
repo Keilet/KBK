@@ -64,6 +64,9 @@
             android:name=".ui.dashboard.DashboardFragment"
             android:screenOrientation="portrait"
             tools:ignore="Instantiatable" />
+        <activity
+            android:name=".ui.menu.gallery.GalleryActivity"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="preloaded_fonts"

@@ -1,6 +1,8 @@
 package com.example.kbk.activities
 
 
+import android.content.Context
+import android.content.Intent
 import android.graphics.drawable.PaintDrawable
 import android.os.Bundle
 import android.view.MenuItem
@@ -32,6 +34,11 @@ class Bnv : AppCompatActivity() {
 
         getSupportActionBar()?.setBackgroundDrawable(PaintDrawable(R.drawable.light))
 
+    }
+    companion object {
+        fun newIntent(context: Context): Intent {
+            return Intent(context, Bnv::class.java)
+        }
     }
 
 }

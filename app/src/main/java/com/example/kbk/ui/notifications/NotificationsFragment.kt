@@ -1,6 +1,7 @@
 package com.example.kbk.ui.notifications
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.work.*
 import com.example.kbk.R
+import java.util.concurrent.TimeUnit
 
+private const val POLL_WORK = "POLL_WORK"
 class NotificationsFragment : Fragment() {
 
     private lateinit var notificationsViewModel: NotificationsViewModel
@@ -28,8 +31,15 @@ class NotificationsFragment : Fragment() {
             textView.text = it
         })
         val constraints=Constraints.Builder().setRequiredNetworkType(NetworkType.UNMETERED).build()
-        val workRequest=OneTimeWorkRequest.Builder(NotufyWorker::class.java).setConstraints(constraints).build()
-        WorkManager.getInstance().enqueue(workRequest)
+        val periodicRequest = PeriodicWorkRequest
+            .Builder(NotufyWorker::class.java, 15, TimeUnit.MINUTES)
+            .setConstraints(constraints)
+            .build()
+        WorkManager.getInstance().enqueueUniquePeriodicWork(
+            POLL_WORK,
+            ExistingPeriodicWorkPolicy.KEEP,
+            periodicRequest)
+        val str:String= QueryPreferences.getStoredQuery(requireContext());
         return root
     }
 }

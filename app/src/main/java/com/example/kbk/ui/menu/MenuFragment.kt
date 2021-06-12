@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.kbk.R
 import com.example.kbk.activities.MainActivity
+import com.example.kbk.ui.menu.gallery.GalleryActivity
 import com.example.kbk.ui.menu.gradebook.GradeBActivity
 import com.example.kbk.ui.menu.teachers.AllTeachers
 import kotlinx.android.synthetic.main.fragment_menu.*
@@ -31,6 +32,7 @@ class MenuFragment : Fragment() {
     private lateinit var call_layout:LinearLayout
     private lateinit var call:Button
     private lateinit var pass:Button
+    private lateinit var gall:Button
     private lateinit var uname:TextView
     private lateinit var ugroup:TextView
     private lateinit var stgroup: String
@@ -121,6 +123,10 @@ class MenuFragment : Fragment() {
                 uname.text = name
             }
             else -> ugroup.text ="Войдите в аккаунт"
+        }
+        gall=root.findViewById(R.id.gallery)
+        gall.setOnClickListener{
+            startActivity(Intent(context, GalleryActivity::class.java))
         }
         return root
     }

@@ -9,6 +9,7 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.example.kbk.NOTIFICATION_CHANNEL_ID
 import com.example.kbk.R
+import com.example.kbk.activities.Bnv
 import com.example.kbk.activities.MainActivity
 import com.example.kbk.model.KBKMessage
 import com.example.kbk.model.KBKMessages
@@ -34,7 +35,7 @@ class NotufyWorker(val context:Context,workerParams:WorkerParameters):Worker(con
         {
             QueryPreferences.setLastResultId(context, resultId)
 
-            val intent = MainActivity.newIntent(context)
+            val intent = Bnv.newIntent(context)
             val pendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
 
             val resources = context.resources

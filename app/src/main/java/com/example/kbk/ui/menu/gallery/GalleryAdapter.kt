@@ -35,9 +35,10 @@ class GalleryAdapter (val imgList: ArrayList<String>) :
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bindItems(images: String) {
-            var imgView = itemView.findViewById(R.id.imageView) as ImageView
+/*            var imgView = itemView.findViewById(R.id.imageView) as ImageView
             textViewTeacherName.text = ima.teacher_name
             textViewDepartment.text = teacher.dep_name
-            textViewWorkDays.text = "Дни работы: "+ teacher.workdays
+            textViewWorkDays.text = "Дни работы: " + teacher.workdays*/
         }
     }
+}

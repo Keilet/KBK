@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.kbk.R
 import com.example.kbk.activities.MainActivity
+import com.example.kbk.ui.NewPasswordDialogFragment
 import com.example.kbk.ui.menu.gallery.GalleryActivity
 import com.example.kbk.ui.menu.gradebook.GradeBActivity
 import com.example.kbk.ui.menu.teachers.AllTeachers
@@ -67,9 +68,15 @@ class MenuFragment : Fragment() {
             }
         }
 
+
         pass=root.findViewById(R.id.chngpass)
         if(ids==0 && idu==0){
             pass.setVisibility(View.GONE)
+        }
+        pass.setOnClickListener {
+            val dialogFragment=NewPasswordDialogFragment()
+            val manager = requireFragmentManager()
+            dialogFragment.show(manager, "newPasswordDialog")
         }
 
         gradeb=root.findViewById(R.id.gradebook)

@@ -47,6 +47,9 @@
         </intent-filter>-->
     </activity>
         <activity
+            android:name=".ui.menu.Documents"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.menu.gradebook.GradeBActivity"
             android:screenOrientation="portrait" />
         <activity

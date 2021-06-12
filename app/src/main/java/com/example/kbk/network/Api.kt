@@ -73,4 +73,12 @@ interface Api {
     fun messageUser (
         @Query("id") id: Int
     ):Call<KBKMessages>
+
+
+    @FormUrlEncoded
+    @POST("update.php")
+    fun updatepassword (
+        @Field("id") id: Int,
+        @Field("password") password: String
+    ):Call<LoginResponse>
 }

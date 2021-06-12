@@ -42,6 +42,10 @@ class MainActivity : AppCompatActivity() {
         val idu: Int = settings.getInt("idu", 0)
         if(ids!=0 || idu!=0) startActivity(Intent(applicationContext, Bnv::class.java))
     }
-
+    companion object {
+        fun newIntent(context: Context): Intent {
+            return Intent(context, MainActivity::class.java)
+        }
+    }
 
 }

@@ -29,7 +29,6 @@ class GalleryAdapter (val imgList: ArrayList<String>,val context:Context) :
     //this method is binding the data on the list
     override fun onBindViewHolder(holder: GalleryAdapter.ViewHolder, position: Int) {
         holder.bindItems(imgList[position])
-        Picasso.with(context).load(Constants.apilink+"images/"+imgList[position])
     }
 
     //this method is giving the size of the list
@@ -41,8 +40,8 @@ class GalleryAdapter (val imgList: ArrayList<String>,val context:Context) :
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bindItems(images: String) {
-           var imgView = itemView.findViewById(R.id.imageView) as ImageView
-
+           var imgView = itemView.findViewById(R.id.img) as ImageView
+            Picasso.with(context).load(Constants.apilink+"images/"+images).into(imgView)
         }
     }
 }

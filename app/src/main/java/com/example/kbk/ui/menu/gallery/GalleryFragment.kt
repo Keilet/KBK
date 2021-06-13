@@ -35,7 +35,7 @@ class GalleryFragment:Fragment() {
         val images:Call<Photos> = api.getImages()
         images.enqueue(object : Callback<Photos>{
             override fun onResponse(call: Call<Photos>, response: Response<Photos>) {
-
+                rec.adapter= response.body()?.let { GalleryAdapter(it.images,requireContext()) }
             }
 
             override fun onFailure(call: Call<Photos>, t: Throwable) {

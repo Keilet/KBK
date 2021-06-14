@@ -11,14 +11,14 @@ class GalleryActivity: AppCompatActivity()  {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.menu_gallery)
-//
-//        val toolbar = findViewById<View>(R.id.toolbar) as Toolbar
-//        setSupportActionBar(toolbar)
-//        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
-//        getSupportActionBar()?.setDisplayShowHomeEnabled(true)
-//        toolbar.setNavigationOnClickListener {
-//            onBackPressed() // возврат на предыдущий activity
-//        }
+
+        val toolbar = findViewById<View>(R.id.toolbar) as Toolbar
+        setSupportActionBar(toolbar)
+        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
+        getSupportActionBar()?.setDisplayShowHomeEnabled(true)
+        toolbar.setNavigationOnClickListener {
+            onBackPressed() // возврат на предыдущий activity
+        }
         val isFragmentContainerEmpty = savedInstanceState == null
         if (isFragmentContainerEmpty) {
             supportFragmentManager

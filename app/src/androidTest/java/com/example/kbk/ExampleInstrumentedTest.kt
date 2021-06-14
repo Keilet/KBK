@@ -19,6 +19,16 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.example.kbk", appContext.packageName)
+        val sharedPreferences = appContext.getSharedPreferences("test", 0)
+        sharedPreferences.edit().clear().commit();
+        val valueHelper:ClassValuesHelper=ClassValuesHelper(sharedPreferences)
+
+     //   valueHelper.saveValues()
+
+        val readValues:Values= valueHelper.readValues()!!
+        val value:Values= Values()
+        value.setFirstOperand("kea")
+        value.setSecondOperand(144)
+        assertTrue(value.equalsToValues(readValues))
     }
 }

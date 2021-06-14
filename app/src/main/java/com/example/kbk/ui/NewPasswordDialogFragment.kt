@@ -14,9 +14,15 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.example.kbk.R
+import com.example.kbk.model.LoginResponse
+import com.example.kbk.model.SendQuestion
+import com.example.kbk.model.User
 import com.example.kbk.network.Api
 import com.example.kbk.network.ServiceBuilder
 import com.google.android.material.textfield.TextInputEditText
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -48,11 +54,12 @@ class NewPasswordDialogFragment: DialogFragment() {
         newpass2=view.findViewById(R.id.newpass2)
         bcancel=view.findViewById(R.id.cancel)
         bsave=view.findViewById(R.id.save)
-        val pass1: String = newpass.text.toString()
-        val pass2: String = newpass2.text.toString()
+
        // if(pass1.isNotEmpty() && pass2.isNotEmpty() && pass1==pass2) bsave.setTextColor(Color.parseColor("#fd961f"))
 
         fun sendForm() {
+            val pass1: String = newpass.text.toString()
+            val pass2: String = newpass2.text.toString()
                if (pass1.isEmpty()){
                     newpass.setError("Введите новый пароль")
                     newpass.requestFocus()
@@ -68,11 +75,31 @@ class NewPasswordDialogFragment: DialogFragment() {
                     newpass2.requestFocus()
                     return
                 }
+                val ids: Int = settings.getInt("ids", 0)
+            if (ids!=0) {
+                var call: Call<LoginResponse> = service.updatepassword(ids,pass1)
+                call.enqueue(object : Callback<LoginResponse> {
+                    override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+                        Toast.makeText(requireContext(), "Пароль изменен", Toast.LENGTH_LONG).show()
+                        dialog!!.dismiss()
+                    }
+
+                    override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                        //Log.e(TAG, "Failed to fetch photos", t)
+                        Toast.makeText(requireContext(), "Пароль изменен", Toast.LENGTH_LONG).show()
+                        dialog!!.dismiss()
+                    }
+                })
+
+            }
 
             }
 
         bsave.setOnClickListener {
             sendForm()
+        }
+        bcancel.setOnClickListener {
+            dialog!!.dismiss()
         }
 
         return builder.create()

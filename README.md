@@ -1,6 +1,5 @@
 <h1 align="center">KBK</h1>
 <p align="center">
-<img src="https://github.com/Keilet/KBK/blob/master/screenshot/%D0%9A%D0%91%D0%9A_%D0%BB%D0%BE%D0%B3%D0%BE_%D1%86%D0%B2%D0%B5%D1%82_rgb.jpg?raw=true" width="248">
 </p>
 <p>
 
